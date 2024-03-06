@@ -1,0 +1,112 @@
+<div class="full-height flex column center-center contailner">
+
+    <mat-card class="half-height half-width flex center-center padding-2em">
+        <div mat-dialog-title class="font">Add Driver</div>
+        <div mat-dialog-content class="full-width">
+            <form [formGroup]="addDriverForm">
+                <div class="no-margin small-title">Drivers Credentials</div>
+                <div class="flex gap-1em full-width">
+                    <!--  name -->
+                    <mat-form-field appearance="outline" class="flex-1">
+                        <mat-label>Name</mat-label>
+                        <input type="text" matInput placeholder="xyz Company" formControlName="Name">
+                        <mat-error *ngIf="addDriverForm.get('Name')?.hasError('required')">
+                            Name is required
+                        </mat-error>
+                        <mat-error *ngIf="addDriverForm.get('Name')?.hasError('minlength')">
+                            Name requires 3 charactors
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- surname -->
+                    <mat-form-field appearance="outline" class="flex-1">
+                        <mat-label>Surname</mat-label>
+                        <input type="text" matInput placeholder="xyz Company" formControlName="Surname">
+                        <mat-error *ngIf="addDriverForm.get('Surname')?.hasError('required')">
+                            Surname is required
+                        </mat-error>
+                        <mat-error *ngIf="addDriverForm.get('Surname')?.hasError('minlength')">
+                            Surname requires 3 charactors
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="flex gap-1em full-width">
+                    <!-- id number -->
+                    <mat-form-field appearance="outline" class="flex-1">
+                        <mat-label>Identification Number </mat-label>
+                        <input type="number" matInput placeholder="0000000000" formControlName="Idnumber">
+                        <mat-error *ngIf="addDriverForm.get('Idnumber')?.hasError('required')">
+                            Identification Number is required
+                        </mat-error>
+                        <mat-error *ngIf="addDriverForm.get('companyRegistrationNumber')?.hasError('min')">
+                            Identification Number requires 13 charactors
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- license numberz -->
+                    <mat-form-field appearance="outline" class="flex-1">
+                        <mat-label>License Number </mat-label>
+                        <input type="number" matInput placeholder="0000000000" formControlName="Idnumber">
+                        <mat-error *ngIf="addDriverForm.get('Idnumber')?.hasError('required')">
+                            License Number is required
+                        </mat-error>
+                        <mat-error *ngIf="addDriverForm.get('companyRegistrationNumber')?.hasError('min')">
+                            License Number requires 13 charactors
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>License Code</mat-label>
+                    <mat-select formControlName="code">
+                        <mat-option *ngFor="let code of codes" [value]="code">{{code | titlecase}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+
+                <!-- contacts email -->
+                <div class="no-margin small-title">Contact details</div>
+
+                <div class="flex gap-1em">
+
+                    <mat-form-field appearance="outline" class="flex-1">
+                        <mat-label>Email</mat-label>
+                        <input type="email" matInput placeholder="xyz@gmail.com" formControlName="email">
+                        <mat-error *ngIf="addDriverForm.get('email')?.hasError('required')">
+                            Email Adreess is required
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- contacts tell phone -->
+                    <mat-form-field appearance="outline" class="flex-1">
+                        <mat-label>cell Number</mat-label>
+                        <input type="number" matInput placeholder="0000000000" formControlName="cellNumber">
+                        <mat-error *ngIf="addDriverForm.get('cellNumber')?.hasError('required')">
+                            cell Number is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- company logo -->
+                <div class="no-margin small-title">Upload</div>
+                <div formGroupName="upload" class="flex column m-b-1em ">
+                    <!-- Radio Button -->
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button value="1"> License</mat-radio-button>
+                        <mat-radio-button value="2">ID</mat-radio-button>
+                    </mat-radio-group>
+                    <!-- upload -->
+                    <div class="h-38">
+                        <input type="file" id="file" (change)="fileUpload($event)" formControlName="uploadDocument"
+                            placeholder="file">
+                        <small class="red" *ngIf="fileUploadResult === 0 &&  addDriverForm.valid">
+                            Document is required
+                        </small>
+                    </div>
+                    </div>
+                    <!-- button -->
+                    <div class="flex center-center full-width gap-1em">
+                        <button mat-raised-button class="btn-cancel flex-1">cancel</button>
+                        <button mat-raised-button class="btn-submit flex-1" (click)="submit()">submit</button>
+                    </div>
+            </form>
+        </div>
+    </mat-card>
+
+</div>
