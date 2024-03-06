@@ -8,14 +8,18 @@ import { MaterialModule } from './material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LandingComponent } from './components/landing/landing.component';
 import { LoginComponent } from './popups/login/login.component';
-import { SuperAdminComponent } from './components/super-admin/super-admin.component'
+import { SuperAdminComponent } from './components/super-admin/super-admin.component';
+import { RegisterComponent } from './popups/register/register.component';
+import { AddDriverComponent } from './popups/add-driver/add-driver.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
     LoginComponent,
-    SuperAdminComponent
+    SuperAdminComponent,
+    RegisterComponent,
+    AddDriverComponent
   ],
   imports: [
     BrowserModule,
