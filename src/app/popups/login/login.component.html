@@ -1,1 +1,84 @@
-<p>login works!</p>
+<div class="dialog flex center-center column">
+
+    <mat-card class="half-width flex center-center padding-2em">
+        <div mat-dialog-title class="title">Log In</div>
+        <div mat-dialog-content class=" flex column">
+            <form [formGroup]="logInForm">
+                <div class="showOnlyAdmin" *ngIf="showOnlyAdmin">
+                    <!-- Email -->
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+                        <mat-error *ngIf="logInForm.get('email')?.hasError('required')">
+                            Email is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="logInForm.get('email')?.hasError('pattern')">
+                            Please enter a valid email address
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- Password -->
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input type="password" matInput formControlName="password" placeholder="Enter your Password">
+                        <mat-error *ngIf="logInForm.get('password')?.hasError('required')">
+                            Password is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="logInForm.get('password')?.hasError('minlength')">
+                            Password should at least have 4 charactors
+                        </mat-error>
+                    </mat-form-field>
+
+                     <!-- Buttons -->
+                <div class=" flex gap-1em center-center full-width">
+                    <button class="flex-1" mat-raised-button color="warn" type="button"
+                        (click)="logInForm.reset()">Cancel</button>
+                    <button class="flex-1" mat-raised-button type="button">Submit</button>
+                </div>
+                </div>
+
+                <!-- Showing and hiding the driver part -->
+                <button (click)="showDriverForm()">Show/Hide</button>
+                <!-- <button (click)="showAdminForm()">Show/Hide</button> -->
+                <!-- Driver container -->
+                <div *ngIf="driver">
+                    <!-- Driver -->
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Driver Id</mat-label>
+                        <input type="id" matInput formControlName="id" placeholder="Enter your Id">
+                        <mat-error *ngIf="logInForm.get('id')?.hasError('required')">
+                            Id is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="logInForm.get('id')?.hasError('minlength')">
+                            Id should at least have 8 charactors
+                        </mat-error>
+                    </mat-form-field>
+
+                    <!-- shift Number -->
+
+                    <div *ngIf="logInForm.get('id')?.valid" >
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Trip Number</mat-label>
+                            <input type="tripNumber" matInput formControlName="tripNumber" placeholder="Enter Trip Number">
+                            <mat-error *ngIf="logInForm.get('tripNumber')?.hasError('required')">
+                                Trip Number is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="logInForm.get('tripNumber')?.hasError('minlength')">
+                                Trip Number should at least have 4 charactors
+                            </mat-error>
+                        </mat-form-field>
+    
+                        <!-- button -->
+                        <button mat-raised-button class="btn" type="button" (click)="startEndText()">{{startEnd}}</button>
+                        
+                    </div>
+                    
+                </div>
+
+               
+            </form>
+        </div>
+    </mat-card>
+
+
+</div>

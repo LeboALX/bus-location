@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LandingComponent } from './components/landing/landing.component';
 import { LoginComponent } from './popups/login/login.component';
 import { SuperAdminComponent } from './components/super-admin/super-admin.component';
+import { AddBusesComponent } from './popups/add-buses/add-buses.component';
 import { RegisterComponent } from './popups/register/register.component';
 import { AddDriverComponent } from './popups/add-driver/add-driver.component'
 
@@ -18,6 +19,8 @@ import { AddDriverComponent } from './popups/add-driver/add-driver.component'
     LandingComponent,
     LoginComponent,
     SuperAdminComponent,
+    AddBusesComponent
+   
     RegisterComponent,
     AddDriverComponent
   ],
