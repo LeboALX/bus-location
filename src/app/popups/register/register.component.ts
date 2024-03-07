@@ -11,7 +11,8 @@ export class RegisterComponent implements OnInit {
   fileElement: any;
   fileUploadResult: any = 0;
   registrationForm: FormGroup
-
+  cell: any ="[0]{1}[6-8]{1}[0-9]{8}"
+  emailp: any =" /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/"
   constructor(private snackbar: MatSnackBar) {
     this.registrationForm = new FormGroup({
       companyName: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -23,8 +24,8 @@ export class RegisterComponent implements OnInit {
         city: new FormControl('', Validators.required),
         code: new FormControl('', Validators.required),
       }),
-      email: new FormControl('', Validators.required),
-      cellNumber: new FormControl('', Validators.required)
+      email: new FormControl('', [Validators.required, Validators.pattern(this.emailp)]),
+      cellNumber: new FormControl('', [Validators.required, Validators.pattern(this.cell)])
     })
   }
 

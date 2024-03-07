@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { RegisterComponent } from 'src/app/popups/register/register.component';
 
+
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
