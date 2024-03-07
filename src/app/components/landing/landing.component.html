@@ -8,14 +8,13 @@
         <!-- Login and Register Buttons -->
         <div class="btns flex gap-1em center-center">
             <div class="flex gap-1em center-center">
-                <mat-form-field appearance="fill">
-                    <mat-label>Login As</mat-label>
-                    <mat-select disableRipple>
-                      <mat-option (click)="log(i)" *ngFor="let dialogItem of dialogItems; let i = index" value="1">{{dialogItem}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                <button class="login" mat-raised-button [matMenuTriggerFor]="menu">Login as</button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item >Admin</button>
+                    <button mat-menu-item >Driver</button>
+                </mat-menu>
             </div>
-            <button mat-raised-button class="register">Register</button>
+            <button mat-raised-button class="register" >Register</button>
         </div>
         <!-- End Login And Register Buttons -->
     </mat-toolbar>
@@ -31,14 +30,14 @@
                 </div>
                 <mat-form-field class="search" appearance="outline">
                     <mat-label>Enter shift number</mat-label>
-                    <input type="text" matInput formControlName="shiftNumber" placeholder="12345" maxlength="6">
+                    <input type="text" matInput formControlName="shiftNumber"  maxlength="6">
                     <mat-error *ngIf="searchBus.get('shiftNumber')?.hasError('required')">
                         Shift Number is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
 
                 <div class="full-width flex center-center">
-                    <button class="search-btn" mat-raised-button [disabled]="searchBus.invalid">Search</button>
+                    <button class="search-btn" mat-raised-button>Search</button>
                 </div>
             </form>
             <!-- End Bus Form -->
