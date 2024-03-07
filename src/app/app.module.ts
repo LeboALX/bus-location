@@ -8,6 +8,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LandingComponent } from './components/landing/landing.component';
 import { LoginComponent } from './popups/login/login.component';
 import { SuperAdminComponent } from './components/super-admin/super-admin.component';
+import { TrackerComponent } from './components/tracker/tracker.component'
+import { GoogleMapsModule } from '@angular/google-maps';
+
 import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
 import { AddDriverComponent } from './components/add-driver/add-driver.component';
 import { AddTripComponent } from './components/add-trip/add-trip.component'
@@ -25,6 +28,7 @@ import { RegisterComponent } from './popups/register/register.component';
     LandingComponent,
     LoginComponent,
     SuperAdminComponent,
+    TrackerComponent,
     CompanyDashboardComponent,
     AddVehicleComponent,
     AddTripComponent,
@@ -42,6 +46,7 @@ import { RegisterComponent } from './popups/register/register.component';
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
+    GoogleMapsModule,
     FormsModule,
     NgChartsModule,
   ],

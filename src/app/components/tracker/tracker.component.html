@@ -1,0 +1,20 @@
+<div class="full-height center-center flex column gap-1em">
+    <form [formGroup]="searchForm">
+        <input type="search" class="half-width" formControlName="search">
+        <button (click)="handleSearch()">Search</button></form>
+    <h3 class="text-center flex">Tracker Result</h3>
+    <mat-card class="card">
+        <google-map height="400px" width="750px" [center]="center" [zoom]="zoom">
+            <!-- Stops -->
+            <map-marker *ngFor="let marker of busStops" [position]="marker.position" [icon]="marker.icon"
+                [title]="marker.title" />
+            <!-- Route Stops -->
+            <map-marker *ngFor="let marker of alternativeStops" [position]="marker.position" [title]="marker.title" />
+            <!-- Buses -->
+            <map-marker *ngFor="let marker of availableBuses" [position]="marker.position" [icon]="marker.icon"
+                [title]="marker.title" />
+            <!-- Directions -->
+            <map-directions-renderer [directions]="directionsResults" />
+        </google-map>
+    </mat-card>
+</div>
