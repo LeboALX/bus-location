@@ -8,11 +8,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LandingComponent } from './components/landing/landing.component';
 import { LoginComponent } from './popups/login/login.component';
 import { SuperAdminComponent } from './components/super-admin/super-admin.component';
-<<<<<<< HEAD
 import { TrackerComponent } from './components/tracker/tracker.component'
 import { GoogleMapsModule } from '@angular/google-maps';
 
-=======
 import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
 import { AddDriverComponent } from './components/add-driver/add-driver.component';
 import { AddTripComponent } from './components/add-trip/add-trip.component'
@@ -23,7 +21,6 @@ import { LineChartComponent } from './charts/line-chart/line-chart.component';
 import { AddRouteComponent } from './popups/add-route/add-route.component';
 import { AddBusesComponent } from './popups/add-buses/add-buses.component';
 import { RegisterComponent } from './popups/register/register.component';
->>>>>>> ef2e2e0b68233b18d38ab8d768f7708837b94c7d
 
 @NgModule({
   declarations: [
@@ -31,9 +28,7 @@ import { RegisterComponent } from './popups/register/register.component';
     LandingComponent,
     LoginComponent,
     SuperAdminComponent,
-<<<<<<< HEAD
     TrackerComponent,
-=======
     CompanyDashboardComponent,
     AddVehicleComponent,
     AddTripComponent,
@@ -44,7 +39,6 @@ import { RegisterComponent } from './popups/register/register.component';
     LineChartComponent,
     AddRouteComponent,
       
->>>>>>> ef2e2e0b68233b18d38ab8d768f7708837b94c7d
   ],
   imports: [
     BrowserModule,
@@ -52,12 +46,9 @@ import { RegisterComponent } from './popups/register/register.component';
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
-<<<<<<< HEAD
-    GoogleMapsModule
-=======
+    GoogleMapsModule,
     FormsModule,
     NgChartsModule,
->>>>>>> ef2e2e0b68233b18d38ab8d768f7708837b94c7d
   ],
   providers: [],
   bootstrap: [AppComponent]
