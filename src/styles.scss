@@ -107,5 +107,10 @@ body {
     margin-top: 1em;
 }
 
+.mat-toolbar.mat-primary {
+    background: #2f3a8f !important;
+    color: #fff;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
