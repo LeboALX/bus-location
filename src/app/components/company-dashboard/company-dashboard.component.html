@@ -1,0 +1,35 @@
+<div class="flex column full-width main-container">
+    <div class="header full-width flex space-around start-center">
+        <div>
+            <img src="../../../assets/images/Gauteng-Coaches-Logo.png" alt="">
+        </div>
+        <div class="flex gap-1em">
+            <div class="flex column nav center-center" *ngFor="let _nav of navItems; let i = index">
+                <p (click)="changeContentDisplay(i)" class="no-margin p pointer">{{_nav}}</p>
+                <div class="underline" *ngIf="selectedNav === i">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex full-width center-center">
+        <mat-card class="flex column">
+            <mat-tab-group *ngIf="showHomeContent">
+                <mat-tab label="All Buses"> Content 1 </mat-tab>
+                <mat-tab label="All Drivers"> Content 2 </mat-tab>
+                <mat-tab label="All Trips"> Content 3 </mat-tab>
+            </mat-tab-group>
+            <!-- Add Vehicle -->
+            <div *ngIf="showVehicleForm" class="vehicle-form full-width">
+                ADD BUS
+            </div>
+            <!-- Add Driver -->
+            <div *ngIf="showDriverForm" class="driver-form full-width">
+                ADD DRIVER
+            </div>
+            <!-- Add TRIP -->
+            <div *ngIf="showTripForm" class="trip-form full-width">
+                ADD TRIP
+            </div>
+        </mat-card>
+    </div>
+</div>

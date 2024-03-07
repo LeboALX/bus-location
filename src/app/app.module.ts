@@ -8,14 +8,22 @@ import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LandingComponent } from './components/landing/landing.component';
 import { LoginComponent } from './popups/login/login.component';
-import { SuperAdminComponent } from './components/super-admin/super-admin.component'
+import { SuperAdminComponent } from './components/super-admin/super-admin.component';
+import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
+import { AddDriverComponent } from './components/add-driver/add-driver.component';
+import { AddTripComponent } from './components/add-trip/add-trip.component'
+import { CompanyDashboardComponent } from './components/company-dashboard/company-dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingComponent,
     LoginComponent,
-    SuperAdminComponent
+    SuperAdminComponent,
+    CompanyDashboardComponent,
+    AddVehicleComponent,
+    AddDriverComponent,
+    AddTripComponent
   ],
   imports: [
     BrowserModule,
