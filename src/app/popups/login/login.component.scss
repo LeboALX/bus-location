@@ -1,0 +1,24 @@
+ //colors
+ $blue: #2f3a8f;
+ $green: #3cba5f;
+ $red: #f00101;
+ $white: #ffffff;
+ $white-bg: #fdfdfd;
+
+.dialog{
+    height: 100%;
+}
+
+.title{
+    font-size: 2em;
+    margin-bottom: 1em;
+    color:$blue;
+}
+.mat-mdc-raised-button.mat-unthemed {
+    --mdc-protected-button-container-color: #3cba5f ;
+    --mdc-protected-button-label-text-color: #ffffff;
+}
+
+.padding-2em{
+    padding: 2em;
+}
