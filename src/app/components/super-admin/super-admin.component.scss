@@ -1,0 +1,47 @@
+.main-container{
+    height: calc(100% - 64px);
+    overflow-y: hidden;
+}
+
+.cards-container{
+    width: 50%;
+    margin-left: 40px;
+    cursor: pointer;
+}
+
+.card {
+    width: 50%;
+    height: 122px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.table-container{
+    padding: 10px;
+}
+
+.pie-chart{
+    width: 50%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.bg-transparent {
+    background-color: transparent;
+}
+
+.border-orange {
+    border: 1px solid orange;
+}
+
+.border-red {
+    border: 1px solid #f00101;
+}
+
+.border-green {
+    border: 1px solid #3cba5f;
+}
+
+.space-around {
+    justify-content: space-around;
+}
