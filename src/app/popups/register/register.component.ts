@@ -7,17 +7,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
+
 export class RegisterComponent implements OnInit {
   fileElement: any;
   fileUploadResult: any = 0;
   registrationForm: FormGroup
-  cell: any ="[0]{1}[6-8]{1}[0-9]{8}"
-  emailp: any =" /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/"
+  cell: any = "[0]{1}[6-8]{1}[0-9]{8}"
+  emailp: any = " /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/"
+
+
   constructor(private snackbar: MatSnackBar) {
     this.registrationForm = new FormGroup({
       companyName: new FormControl('', [Validators.required, Validators.minLength(4)]),
       companyRegistrationNumber: new FormControl('', [Validators.required, Validators.min(999999)]),
-      companyLogo: new FormControl(File, Validators.required),
       address: new FormGroup({
         streetName: new FormControl('', Validators.required),
         streetNumber: new FormControl('', Validators.required),
