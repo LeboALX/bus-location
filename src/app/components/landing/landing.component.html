@@ -1,1 +1,63 @@
-<p>landing works!</p>
+<div class="full-height main-landing">
+    <!-- NavBar -->
+    <mat-toolbar class="navbar flex spacebetween-center">
+        <div class="full-height flex center-center gap-1em">
+            <img class="logo" src="../../../assets/images/bus logo.jpg" alt="Bus logo">
+            <p class="no-margin">Track Bus</p>
+        </div>
+        <!-- Login and Register Buttons -->
+        <div class="btns flex gap-1em center-center">
+            <div class="flex gap-1em center-center">
+                <button class="login" mat-raised-button [matMenuTriggerFor]="menu">Login as</button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="login(0)">Admin</button>
+                    <button mat-menu-item (click)="login(1)" >Driver</button>
+                </mat-menu>
+            </div>
+            <button mat-raised-button class="register" (click)="register()">Register</button>
+        </div>
+        <!-- End Login And Register Buttons -->
+    </mat-toolbar>
+    <!-- End NavBar -->
+    <!-- Section Div -->
+    <div class="main-section flex column center-center">
+        <div class="search-bus">
+            <!-- Search Bus Form -->
+            <form [formGroup]="searchBus" class="flex column center-center gap-1em">
+                <div class="flex gap-1em center-center">
+                    <span class="material-icons">location_on</span>
+                    <p class="search-text">Search For Bus Location</p>
+                </div>
+                <mat-form-field class="search" appearance="outline">
+                    <mat-label>Enter shift number</mat-label>
+                    <input type="text" matInput formControlName="shiftNumber"  maxlength="6">
+                    <mat-error *ngIf="searchBus.get('shiftNumber')?.hasError('required')">
+                        Shift Number is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <div class="full-width flex center-center">
+                    <button class="search-btn" mat-raised-button>Search</button>
+                </div>
+            </form>
+            <!-- End Bus Form -->
+        </div>
+    </div>
+    <!-- End Section -->
+    <!-- Footer -->
+    <mat-toolbar class="footer flex gap-1em">
+        <div class="flex center-center">
+            <i class='bx fb bxl-facebook-circle'></i>
+            <small>Facebook</small>
+        </div>
+        <div class="flex center-center">
+            <i class='bx twitter bxl-twitter'></i>
+            <small>twitter</small>
+        </div>
+        <div class="flex center-center">
+            <i class='bx insta bxl-instagram'></i>
+            <small>Instagram</small>
+        </div>
+    </mat-toolbar>
+    <!-- End Footer -->
+</div>

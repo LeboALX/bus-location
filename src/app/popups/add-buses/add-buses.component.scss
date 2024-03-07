@@ -3,12 +3,6 @@
    height: 80%;
 }
 
-$blue: #2f3a8f;
-$green: #3cba5f;
-$red: #f00101;
-$white: #ffffff;
-$white-bg: #fdfdfd;
-
 .mat-mdc-raised-button.mat-unthemed {
    --mdc-protected-button-container-color: #3cba5f;
    --mdc-protected-button-label-text-color: #ffffff;
@@ -37,9 +31,10 @@ $white-bg: #fdfdfd;
    text-align: center;
 }
 
-.small-title {
-   font-size: 1.5em;
-   color: $blue;
+.title{
+   font-size: 2em;
+   margin-bottom: 1em;
+   color:#2f3a8f;
 }
 
 .padding-2em {
@@ -52,4 +47,17 @@ $white-bg: #fdfdfd;
 
 .m-b-1em {
    margin-bottom: 1em;
+}
+
+.formsize{
+   width: 811px;
+  
+}
+
+.width{
+   width: 921px;
+   
+}
+.mat-mdc-dialog-content {
+   max-height: 90vh !important;
 }

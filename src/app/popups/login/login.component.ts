@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, MaxLengthValidator, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -8,11 +8,18 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+
   driver: boolean = false;
   logInForm: FormGroup;
-  showOnlyAdmin: boolean = true;
+  showOnlyAdmin: boolean = false;
 
-  constructor(public dialog: MatDialog){ 
+   constructor(@Inject(MAT_DIALOG_DATA) public _data: any){ 
+    if(_data._data === 'Driver'){
+      this.driver = true;
+    }
+    if(_data._data === 'Admin'){
+      this.showOnlyAdmin = true;
+    }
     this.logInForm= new FormGroup({
       email: new FormControl('', [Validators.required, Validators.pattern(/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/)]),
       password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
@@ -20,11 +27,7 @@ export class LoginComponent {
       tripNumber: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
     })
   }
-
-  openDialog() {
-    // this.dialog.open(this.dialog);
-  }
-
+  
   startEnd:string = 'Start Trip'
 
   startEndText(){
