@@ -1,0 +1,108 @@
+$blue: #2f3a8f;
+$green: #3cba5f;
+$red: #f00101;
+$white: #ffffff;
+$white-bg: #fdfdfd;
+
+.main-landing{
+    background-color: aqua;
+}
+
+.navbar{
+    background-color: $blue;
+    height: 70px;
+    color: $white;
+}
+
+.logo{
+    height: 80%;
+    border-radius: 50%;
+}
+
+.login{
+    background-color: $green !important;
+    font-size: .8em;
+    color: white !important;
+    width: 120px;
+}
+
+.white{
+    color: $white;
+}
+
+.register{
+    background-color: $red !important;
+    font-size: .8em;
+    color: white !important;
+}
+
+.main-section{
+    height: calc(100% - 140px);
+    background-color: #ffffff;
+    background-size:cover;
+    // background-image: url('../../../assets/images/route.webp');
+    background-position: center;
+}
+
+.search-bus{
+    height: 50%;
+    width: 40%;
+}
+
+.search-text{
+    font-size: 2em;
+    margin: 0;
+    margin-bottom: 15px;
+    color: $blue;
+}
+
+.search{
+    width: 80%;
+    color: $blue !important;
+}
+
+.mat-error{
+    display: none !important;
+}
+
+.search-btn{
+    width: 150px;
+    height: 40px;
+    background-color: $green !important;
+    font-size: 1em;
+    color: #fdfdfd !important;
+}
+
+.footer{
+    height: 70px;
+}
+
+.footer i{
+    font-size: 1.5em;
+}
+
+.rad-btn{
+    color: white !important;
+}
+
+.fb{
+    color: #2f3a8f;
+}
+
+.insta{
+    color: #f00101;
+}
+
+.twitter{
+    color: aqua;
+}
+
+.material-icons{
+    font-size: 2em;
+    margin-bottom: 15px;
+    color: $red;
+}
+
+input{
+    color: $blue !important;
+}
