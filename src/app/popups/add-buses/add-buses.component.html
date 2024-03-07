@@ -1,0 +1,99 @@
+<div class="full-height flex column center-center contailner">
+    <mat-card class="full-height full-width flex center-center ">
+        <div mat-dialog-title class="title">Add Bus</div>
+        <div mat-dialog-content class="full-width">
+            <form [formGroup]=" addDriverForm" class="formsize">
+                <div class="flex gap-1em full-width">
+                    <!-- brand of the bus -->
+                    <mat-form-field appearance="outline" class="flex-1">
+                        <mat-label>Make</mat-label>
+                        <input type="text" matInput placeholder="Toyota" formControlName="make">
+                        <mat-error *ngIf="addDriverForm.get('make')?.hasError('required')">
+                            Make is required
+                        </mat-error>
+                    </mat-form-field>
+                    <!--  bus number -->
+                    <mat-form-field appearance="outline" class="flex-1">
+                        <mat-label>Bus Number</mat-label>
+                        <input type="number" matInput placeholder="1184" formControlName="busNumber">
+                        <mat-error *ngIf="addDriverForm.get('busNumber')?.hasError('required')">
+                            Company registration Number is required
+                        </mat-error>
+                        <mat-error *ngIf="addDriverForm.get('busNumber')?.hasError('min')">
+                            Company registration Number requires 4 characters
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <!-- Model -->
+                    <mat-form-field class="full-width">
+                        <mat-label>Model</mat-label>
+                        <mat-select formControlName="model">
+                            <mat-option *ngFor="let model of models" [value]="models">{{model | titlecase}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="addDriverForm.get('model')?.hasError('required')">
+                            Model is required
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- Occupancy -->
+                    <mat-form-field class="full-width">
+                        <mat-label>Occupancy</mat-label>
+                        <mat-select formControlName="occupant">
+                            <mat-option *ngFor="let occupant of occupancy" [value]="occupant">{{occupant |
+                                titlecase}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="addDriverForm.get('occupant')?.hasError('required')">
+                            Occupant is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="flex gap-1em full-width">
+                    <!-- Number plate -->
+                    <mat-form-field appearance="outline" class="flex-1">
+                        <mat-label>Number Plate</mat-label>
+                        <input type="text" matInput placeholder="HDG12GP" formControlName="numberPlate">
+                        <mat-error *ngIf="addDriverForm.get('numberPlate')?.hasError('required')">
+                            Number Plate is required
+                        </mat-error>
+                        <mat-error *ngIf="addDriverForm.get('numberPlate')?.hasError('min')">
+                            Number Plate requires 8 characters
+                        </mat-error>
+                    </mat-form-field>
+                    <!--  disc number-->
+                    <mat-form-field appearance="outline" class="flex-1">
+                        <mat-label>Disc Number</mat-label>
+                        <input type="text" matInput placeholder="1245567891GH" formControlName="discNumber">
+                        <mat-error *ngIf="addDriverForm.get('discNumber')?.hasError('required')">
+                            Company registration Numberis required
+                        </mat-error>
+                        <mat-error *ngIf="addDriverForm.get('discNumber')?.hasError('min')">
+                            Company registration Number requires 6 characters
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- Upload -->
+                <div class="no-margin small-title">Upload</div>
+                <div formGroupName="upload" class="flex column m-b-1em ">
+                    <!-- Radio Button -->
+                    <mat-radio-group aria-label="Select an option">
+                        <mat-radio-button value="1">Roadworthy certificate</mat-radio-button>
+                        <mat-radio-button value="2">Disc</mat-radio-button>
+                    </mat-radio-group>
+                    <!-- upload -->
+                    <div class="h-38">
+                        <input type="file" id="file" (change)="fileUpload($event)" formControlName="uploadDocument"
+                            placeholder="file">
+                        <small class="color" *ngIf="fileUploadResult === 0 &&  addDriverForm.valid">
+                            Document is required
+                        </small>
+                    </div>
+                </div>
+                <!-- button -->
+                <div class="flex gap-1em center-center full-width">
+                    <button mat-raised-button class="flex-1" color="warn">Cancel</button>
+                    <button mat-raised-button class="flex-1" (click)="submit()">Submit</button>
+                </div>
+            </form>
+        </div>
+    </mat-card>
+</div>
