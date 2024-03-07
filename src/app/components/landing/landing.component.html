@@ -10,11 +10,11 @@
             <div class="flex gap-1em center-center">
                 <button class="login" mat-raised-button [matMenuTriggerFor]="menu">Login as</button>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item >Admin</button>
-                    <button mat-menu-item >Driver</button>
+                    <button mat-menu-item (click)="login(0)">Admin</button>
+                    <button mat-menu-item (click)="login(1)" >Driver</button>
                 </mat-menu>
             </div>
-            <button mat-raised-button class="register" >Register</button>
+            <button mat-raised-button class="register" (click)="register()">Register</button>
         </div>
         <!-- End Login And Register Buttons -->
     </mat-toolbar>

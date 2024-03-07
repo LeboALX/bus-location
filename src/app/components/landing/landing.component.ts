@@ -1,6 +1,7 @@
 import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from 'src/app/popups/login/login.component';
 import { RegisterComponent } from 'src/app/popups/register/register.component';
 
 
@@ -26,4 +27,24 @@ export class LandingComponent {
     }) 
   }
   
+  login(indx: any): void{
+    if(indx === 0) {
+      this.dialog.open(LoginComponent,{
+        data: {
+          _data: 'Admin'
+        }
+      })
+    }
+    if(indx === 1) {
+      this.dialog.open(LoginComponent,{
+        data: {
+          _data: 'Driver'
+        }
+      })
+    }
+  }
+
+  register(){
+    this.dialog.open(RegisterComponent)
+  }
 }

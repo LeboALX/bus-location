@@ -36,11 +36,8 @@ import { AddDriverComponent } from './popups/add-driver/add-driver.component'
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
-<<<<<<< HEAD
-    FormsModule
-=======
+    FormsModule,
     NgChartsModule,
->>>>>>> 7d5ea4febbce30f06a065f37284fb82110dc3d70
   ],
   providers: [],
   bootstrap: [AppComponent]
