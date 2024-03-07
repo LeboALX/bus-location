@@ -37,6 +37,18 @@ $blue: #2f3a8f;
    font-size: 1.5em;
    color: $blue;
 }
+.formsize{
+   width: 811px;
+   height: 581px;
+} 
 .h-38{
    height: 38px;
+}
+mat-dialog-content{
+   width: 921px;
+   height: 724px;
+
+}
+.mat-mdc-dialog-content {
+   max-height: 75vh !important;
 }

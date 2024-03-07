@@ -8,6 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./add-driver.component.scss']
 })
 export class AddDriverComponent {
+  cell: any ="[0]{1}[6-8]{1}[0-9]{8}"
+  emailp: any =" /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/"
   addDriverForm:FormGroup
  codes:any[]=['Code 10','Code 14'];
  fileElement: any;
@@ -18,9 +20,10 @@ export class AddDriverComponent {
       Surname : new FormControl('' , [Validators.required , Validators.minLength(3)]),
       Idnumber: new FormControl ('', [Validators.required , Validators.min(999999)]),
       Licensenumber: new FormControl ('', [Validators.required , Validators.min(999999)]),
-     email:new FormControl('',Validators.required),
-     cellNumber:new FormControl('',Validators.required),
+     email:new FormControl('',[Validators.required,Validators.pattern(this.emailp)]),
+     cellNumber:new FormControl('',[Validators.required, Validators.pattern(this.cell)]),
      companyLogo: new FormControl(File,Validators.required),
+     code:new FormControl('',Validators.required),
      upload:new FormGroup ({
       uploadDocument:new FormControl(File,Validators.required)
      })

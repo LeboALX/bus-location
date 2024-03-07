@@ -1,9 +1,9 @@
 <div class="full-height flex column center-center contailner">
 
-    <mat-card class="half-height half-width flex center-center padding-2em">
-        <div mat-dialog-title class="font">Add Driver</div>
-        <div mat-dialog-content class="full-width">
-            <form [formGroup]="addDriverForm">
+    <mat-card class="full-height full-width flex center-center padding-2em">
+        <div mat-dialog-title class="font ">Add Driver</div>
+        <div mat-dialog-content class="full-width contailner">
+            <form [formGroup]="addDriverForm" class="formsize">
                 <div class="no-margin small-title">Drivers Credentials</div>
                 <div class="flex gap-1em full-width">
                     <!--  name -->
@@ -58,6 +58,9 @@
                     <mat-select formControlName="code">
                         <mat-option *ngFor="let code of codes" [value]="code">{{code | titlecase}}</mat-option>
                     </mat-select>
+                    <mat-error *ngIf="addDriverForm.get('code')?.hasError('required')">
+                      License code  is required
+                    </mat-error>
                 </mat-form-field>
 
 
@@ -73,6 +76,9 @@
                         <mat-error *ngIf="addDriverForm.get('email')?.hasError('required')">
                             Email Adreess is required
                         </mat-error>
+                        <mat-error *ngIf="addDriverForm.get('email')?.hasError('pattern')">
+                            enter a valid Email Adreess
+                        </mat-error>
                     </mat-form-field>
                     <!-- contacts tell phone -->
                     <mat-form-field appearance="outline" class="flex-1">
@@ -80,6 +86,9 @@
                         <input type="number" matInput placeholder="0000000000" formControlName="cellNumber">
                         <mat-error *ngIf="addDriverForm.get('cellNumber')?.hasError('required')">
                             cell Number is required
+                        </mat-error>
+                        <mat-error *ngIf="addDriverForm.get('cellNumber')?.hasError('pattern')">
+                            enter a valid SA cell phone number
                         </mat-error>
                     </mat-form-field>
                 </div>
