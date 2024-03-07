@@ -12,7 +12,7 @@ export class LoginComponent {
   logInForm: FormGroup;
   showOnlyAdmin: boolean = true;
 
-  constructor(public dialog: MatDialog){ 
+   constructor(){ 
     this.logInForm= new FormGroup({
       email: new FormControl('', [Validators.required, Validators.pattern(/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/)]),
       password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
@@ -20,11 +20,7 @@ export class LoginComponent {
       tripNumber: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]),
     })
   }
-
-  openDialog() {
-    // this.dialog.open(this.dialog);
-  }
-
+  
   startEnd:string = 'Start Trip'
 
   startEndText(){
