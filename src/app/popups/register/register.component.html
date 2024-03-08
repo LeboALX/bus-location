@@ -1,43 +1,39 @@
 <div class="full-height flex column center-center ">
-
     <mat-card class="full-height full-width center-center padding-2em ">
         <div mat-dialog-title class="font contailner"> Register Company</div>
         <div mat-dialog-content class="full-width contailner">
             <form [formGroup]="registrationForm" class="formsize">
-
-                <div class="small-title">Company Credentials</div>
-                <div class="flex gap-1em full-width">
-                    <!-- company name -->
-                    <mat-form-field appearance="outline" class="flex-1">
-                        <mat-label>Company Name</mat-label>
-                        <input type="text" matInput placeholder="xyz Company" formControlName="companyName">
-                        <mat-error *ngIf="registrationForm.get('companyName')?.hasError('required')">
-                            Company Name is required
-                        </mat-error>
-                        <mat-error *ngIf="registrationForm.get('companyName')?.hasError('minlength')">
-                            Company Name requires 4 charactors
-                        </mat-error>
-                    </mat-form-field>
-                    <!-- company registration number -->
-                    <mat-form-field appearance="outline" class="flex-1">
-                        <mat-label>Company registration Number </mat-label>
-                        <input type="number" matInput placeholder="0000000000"
-                            formControlName="companyRegistrationNumber">
-                        <mat-error *ngIf="registrationForm.get('companyRegistrationNumber')?.hasError('required')">
-                            Company registration Numberis required
-                        </mat-error>
-                        <mat-error *ngIf="registrationForm.get('companyRegistrationNumber')?.hasError('min')">
-                            Company registration Number requires 6 charactors
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-
-                <!-- company logo -->
-                <div class="flex column m-b-1em h-38">
-                    <input type="file" id="file" (change)="fileUpload($event)" formControlName="companyLogo">
-                    <small class="red" *ngIf="fileUploadResult === 0 && registrationForm.valid">
-                        Company Logo is required
-                    </small>
+                <div class="small-title">Company Details</div>
+                <div class="flex gap-1em full-width column">
+                    <div class="flex gap-1em full-width">
+                        <!-- company name -->
+                        <mat-form-field appearance="outline" class="flex-1">
+                            <mat-label>Company Name</mat-label>
+                            <input type="text" matInput placeholder="xyz Company" formControlName="companyName">
+                            <mat-error >
+                                Company Name is required
+                            </mat-error>
+                        </mat-form-field>
+                        <!-- company registration number -->
+                        <mat-form-field appearance="outline" class="flex-1">
+                            <mat-label>Company registration Number </mat-label>
+                            <input type="number" matInput placeholder="0000000000"
+                                formControlName="companyRegistrationNumber">
+                            <mat-error *ngIf="registrationForm.get('companyRegistrationNumber')?.hasError('required')">
+                                Company registration Numberis required
+                            </mat-error>
+                            <mat-error *ngIf="registrationForm.get('companyRegistrationNumber')?.hasError('min')">
+                                Company registration Number requires 6 charactors
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <!-- company logo -->
+                    <div class="flex column m-b-1em h-38">
+                        <input type="file" id="file" (change)="fileUpload($event)">
+                        <small class="red" *ngIf="fileUploadResult === 0 && registrationForm.valid">
+                            Company Logo is required
+                        </small>
+                    </div>
                 </div>
                 <!-- location -->
                 <div class="small-title">Address</div>
@@ -83,7 +79,6 @@
                 <!-- contacts email -->
                 <div class="small-title">Contact details</div>
                 <div class="flex gap-1em">
-
                     <mat-form-field appearance="outline" class="flex-1">
                         <mat-label>Email</mat-label>
                         <input type="email" matInput placeholder="xyz@gmail.com" formControlName="email">
@@ -98,19 +93,15 @@
                     <mat-form-field appearance="outline" class="flex-1">
                         <mat-label>cell Number</mat-label>
                         <input type="number" matInput placeholder="0000000000" formControlName="cellNumber">
-                        <mat-error *ngIf="registrationForm.get('cellNumber')?.hasError('required')">
+                        <mat-error *ngIf="registrationForm.get('cellNumber')?.hasError('required')">              
                             cell Number is required
-                        </mat-error>
-                        <mat-error *ngIf="registrationForm.get('cellNumber')?.hasError('pattern')">
-                            enter a valid SA cell phone number
                         </mat-error>
                     </mat-form-field>
                 </div>
-
                 <!-- button -->
                 <div class="flex center-center full-width gap-1em">
                     <button mat-raised-button class="btn-cancel flex-1 ">cancel</button>
-                    <button  mat-raised-button class="btn-submit flex-1 " (click)="submit()">submit</button>
+                    <button mat-raised-button class="btn-submit flex-1 " (click)="submit()">submit</button>
                 </div>
             </form>
         </div>

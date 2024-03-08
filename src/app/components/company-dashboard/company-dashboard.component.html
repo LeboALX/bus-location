@@ -19,16 +19,16 @@
                 <mat-tab label="All Trips"> Content 3 </mat-tab>
             </mat-tab-group>
             <!-- Add Vehicle -->
-            <div *ngIf="showVehicleForm" class="vehicle-form full-width">
-                ADD BUS
+            <div *ngIf="showVehicleForm" class="vehicle-form full-width full-height">
+                <app-add-buses></app-add-buses>
             </div>
             <!-- Add Driver -->
             <div *ngIf="showDriverForm" class="driver-form full-width">
-                ADD DRIVER
+                <app-add-driver></app-add-driver>
             </div>
             <!-- Add TRIP -->
             <div *ngIf="showTripForm" class="trip-form full-width">
-                ADD TRIP
+                <app-add-route></app-add-route>
             </div>
         </mat-card>
     </div>

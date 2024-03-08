@@ -1,8 +1,6 @@
-<div class="full-height center-center flex column gap-1em">
-    <form [formGroup]="searchForm">
-        <input type="search" class="half-width" formControlName="search">
-        <button (click)="handleSearch()">Search</button></form>
-    <h3 class="text-center flex">Tracker Result</h3>
+<div class="full-height m-10px center-center flex column gap-1em">
+    <p class="pStyles pointer" (click)="close()">X</p>
+    <h3 class="text-center p flex">Tracker Result</h3>
     <mat-card class="card">
         <google-map height="400px" width="750px" [center]="center" [zoom]="zoom">
             <!-- Stops -->

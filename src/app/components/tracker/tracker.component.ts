@@ -1,13 +1,14 @@
-import { Component, NgZone } from '@angular/core';
+import { Component, Inject, NgZone, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tracker',
   templateUrl: './tracker.component.html',
   styleUrls: ['./tracker.component.scss']
 })
-export class TrackerComponent {
-
+export class TrackerComponent implements OnInit {
+  shitfValue!: any;
   directionsResults: any;
 
   private map!: google.maps.Map;
@@ -16,6 +17,11 @@ export class TrackerComponent {
 
   zoom: number = 15;
   center: any;
+
+  ngOnInit(): void {
+    
+    this.handleSearch();
+  }
 
   busStops: any[] = [
     // Route 1 
@@ -92,7 +98,9 @@ export class TrackerComponent {
 
   ]
 
-  constructor(private zone: NgZone) {
+  constructor(private zone: NgZone, @Inject(MAT_DIALOG_DATA) public tripNo: any,
+  private dialogRef: MatDialogRef<TrackerComponent>) {
+    this.shitfValue = tripNo.tripNo;
     this.getMyCurrentLocation();
 
     this.directionsService = new google.maps.DirectionsService();
@@ -118,19 +126,19 @@ export class TrackerComponent {
       // this.calculateAndDisplayRoute();
     })
     let count = 0
-    setInterval(() => {
-      navigator.geolocation.getCurrentPosition(location => {
-        this.center = {
-          lat: this.movingBus[count].position.lat,
-          lng: this.movingBus[count].position.lng
-        }
+    // setInterval(() => {
+    //   navigator.geolocation.getCurrentPosition(location => {
+    //     this.center = {
+    //       lat: this.movingBus[count].position.lat,
+    //       lng: this.movingBus[count].position.lng
+    //     }
 
-        console.log('Current Location : ', this.center)
-        this.availableBuses[0].position = this.center;
-        count++
-        // this.calculateAndDisplayRoute();
-      })
-    }, 3000);
+    //     console.log('Current Location : ', this.center)
+    //     this.availableBuses[0].position = this.center;
+    //     count++
+    //     // this.calculateAndDisplayRoute();
+    //   })
+    // }, 3000);
 
   }
 
@@ -154,13 +162,8 @@ export class TrackerComponent {
     });
   }
 
-  // Add to landing component
-  searchForm = new FormGroup({
-    search: new FormControl('')
-  })
-
   handleSearch() {
-    if (this.searchForm.controls['search'].value === '0001') {
+    if (this.shitfValue === '0001') {
 
       this.busStops = [
         {
@@ -195,7 +198,7 @@ export class TrackerComponent {
       this.calculateAndDisplayRoute();
     }
 
-    if (this.searchForm.controls['search'].value === '0002') {
+    if (this.shitfValue === '0002') {
       this.busStops = [
         {
           title: 'Randburg',
@@ -228,7 +231,7 @@ export class TrackerComponent {
         this.calculateAndDisplayRoute();
     }
 
-    if (this.searchForm.controls['search'].value === '0003') {
+    if (this.shitfValue === '0003') {
       this.busStops = [
         {
           title: 'Sandton',
@@ -259,10 +262,12 @@ export class TrackerComponent {
 
           },
         ],
-
         this.calculateAndDisplayRoute();
     }
-
   }
- 
+
+  close(): void {
+    this.dialogRef.close()
+  }
+
 }

@@ -10,7 +10,6 @@ import { LoginComponent } from './popups/login/login.component';
 import { SuperAdminComponent } from './components/super-admin/super-admin.component';
 import { TrackerComponent } from './components/tracker/tracker.component'
 import { GoogleMapsModule } from '@angular/google-maps';
-
 import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
 import { AddDriverComponent } from './components/add-driver/add-driver.component';
 import { AddTripComponent } from './components/add-trip/add-trip.component'
@@ -21,6 +20,7 @@ import { LineChartComponent } from './charts/line-chart/line-chart.component';
 import { AddRouteComponent } from './popups/add-route/add-route.component';
 import { AddBusesComponent } from './popups/add-buses/add-buses.component';
 import { RegisterComponent } from './popups/register/register.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -38,8 +38,7 @@ import { RegisterComponent } from './popups/register/register.component';
     RegisterComponent,
     AddDriverComponent,
     RegisterComponent,
-    AddRouteComponent,
-      
+    AddRouteComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +49,7 @@ import { RegisterComponent } from './popups/register/register.component';
     GoogleMapsModule,
     FormsModule,
     NgChartsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

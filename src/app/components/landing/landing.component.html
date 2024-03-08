@@ -30,14 +30,14 @@
                 </div>
                 <mat-form-field class="search" appearance="outline">
                     <mat-label>Enter shift number</mat-label>
-                    <input type="text" matInput formControlName="shiftNumber"  maxlength="6">
-                    <mat-error *ngIf="searchBus.get('shiftNumber')?.hasError('required')">
+                    <input type="text" matInput formControlName="tripNumber"  maxlength="6">
+                    <mat-error *ngIf="searchBus.get('tripNumber')?.hasError('required')">
                         Shift Number is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
 
                 <div class="full-width flex center-center">
-                    <button class="search-btn" mat-raised-button>Search</button>
+                    <button class="search-btn" (click)="searchOnMap()" mat-raised-button>Search</button>
                 </div>
             </form>
             <!-- End Bus Form -->

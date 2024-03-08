@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddBusesComponent } from 'src/app/popups/add-buses/add-buses.component';
 
 @Component({
   selector: 'app-company-dashboard',
@@ -12,6 +14,8 @@ export class CompanyDashboardComponent {
   showDriverForm: boolean = false;
   showTripForm: boolean = false;
   selectedNav: any = 0;
+
+  constructor(private dialog: MatDialog){ }
 
   changeContentDisplay(indx: any): void {
     // Set all other views false except indx content
@@ -42,4 +46,9 @@ export class CompanyDashboardComponent {
       this.showTripForm = true;
     }
   }
+
+  openBus(){
+    this.dialog.open(AddBusesComponent)
+  }
+  
 }
