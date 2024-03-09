@@ -21,6 +21,7 @@ import { AddRouteComponent } from './popups/add-route/add-route.component';
 import { AddBusesComponent } from './popups/add-buses/add-buses.component';
 import { RegisterComponent } from './popups/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ActionTabComponent } from './popups/action-tab/action-tab.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { HttpClientModule } from '@angular/common/http';
     RegisterComponent,
     AddDriverComponent,
     RegisterComponent,
-    AddRouteComponent
+    AddRouteComponent,
+    ActionTabComponent
   ],
   imports: [
     BrowserModule,

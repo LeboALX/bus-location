@@ -1,6 +1,9 @@
 import { DataSource } from '@angular/cdk/collections';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActionTabComponent } from 'src/app/popups/action-tab/action-tab.component';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -19,30 +22,10 @@ export class SuperAdminComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  constructor(private api: ApiService) {
+  constructor(private api: ApiService, private dialog: MatDialog, private snackbar: MatSnackBar) {
     const data = this.api.genericGet('/get-company')
       .subscribe({
         next: (res: any) => {
-          // this.dataSource = res;
-        //   this.dataSource = {
-        //     "_id": "65eb0b58af8038a6dfc29d97",
-        //     "companyName": "Test",
-        //     "status": "pending",
-        //     "fileId": "picture-1709902649989",
-        //     "companyRegistrationNumber": 12345645646,
-        //     "address": {
-        //         "streetName": "mamalangoane street",
-        //         "streetNumber": 557,
-        //         "city": "Emndeni",
-        //         "code": 4564,
-        //         "_id": "65eb0b58af8038a6dfc29d98"
-        //     },
-        //     "email": "mathotolebogang@gmail.com",
-        //     "cellNumber": 1234567899
-        // }
-        
-        // console.log("this.dataSource",this.dataSource)
-
         const item = res;
           this.dataSource.data = [item];
           console.log(this.dataSource.data.length)
@@ -54,5 +37,25 @@ export class SuperAdminComponent {
         error: (err: any) => console.log('Error', err),
         complete: () => { }
       });
+  }
+
+  action(company: any): void {
+    this.dialog.open(ActionTabComponent);
+    console.log(company)
+    const dialogRef = this.dialog.open(ActionTabComponent, {
+      data: company
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        this.snackbar.open('Action was canceled', 'Ok', { duration: 2000 })
+      } else {
+        this.snackbar.open(result, 'Ok', { duration: 2000 })
+      }
+    });
+  }
+
+  deleteCompany(): void{
+    
   }
 }
