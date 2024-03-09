@@ -8,7 +8,7 @@
   <div class="main-container flex column">
     <div class="flex center-center gap-1em ">
       <div class="cards-container flex center-center gap-1em">
-        <mat-card matBadge="5" matBadgeSize="large" matBadgeOverlap="true"
+        <mat-card [matBadge]="dataSource.data.length" matBadgeSize="large" matBadgeOverlap="true"
           class="card bg-transparent border-orange flex center-center">Pending</mat-card>
         <mat-card class="card bg-transparent border-red flex center-center">Declined</mat-card>
         <mat-card class="card bg-transparent border-green flex center-center">Approved</mat-card>

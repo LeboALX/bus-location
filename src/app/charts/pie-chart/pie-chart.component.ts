@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChartOptions } from 'chart.js';
 
 @Component({
@@ -7,6 +7,7 @@ import { ChartOptions } from 'chart.js';
   styleUrls: ['./pie-chart.component.scss']
 })
 export class PieChartComponent {
+  @Input()data:number = 0
   public pieChartOptions: ChartOptions<'pie'> = {
     responsive: false,
     plugins: {
@@ -17,7 +18,7 @@ export class PieChartComponent {
   };
   public pieChartLabels = [ ['Pending'], ['Declined'], ['Approved']];
   public pieChartDatasets = [ {
-    data: [ 40, 30, 50 ], 
+    data: [ [this.data], 30, 50 ], 
     backgroundColor: ['orange', '#f00101', '#3cba5f']
   } ];
   public pieChartLegend = true;
