@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { DataSource } from '@angular/cdk/collections';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -9,7 +10,9 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class SuperAdminComponent {
   displayedColumns: string[] = ['id', 'companyName', 'action'];
-  dataSource = new MatTableDataSource<any>;
+  dataSource = new MatTableDataSource<any>();
+
+  @Output() data: EventEmitter<any> = new EventEmitter<any>();
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -20,7 +23,7 @@ export class SuperAdminComponent {
     const data = this.api.genericGet('/get-company')
       .subscribe({
         next: (res: any) => {
-          this.dataSource = res;
+          // this.dataSource = res;
         //   this.dataSource = {
         //     "_id": "65eb0b58af8038a6dfc29d97",
         //     "companyName": "Test",
@@ -37,8 +40,16 @@ export class SuperAdminComponent {
         //     "email": "mathotolebogang@gmail.com",
         //     "cellNumber": 1234567899
         // }
+        
+        // console.log("this.dataSource",this.dataSource)
 
-          console.log("this.dataSource",this.dataSource)
+        const item = res;
+          this.dataSource.data = [item];
+          console.log(this.dataSource.data.length)
+
+        // chart display:
+        this.data.emit(this.dataSource.data.length)
+
         },
         error: (err: any) => console.log('Error', err),
         complete: () => { }
