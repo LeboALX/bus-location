@@ -12,7 +12,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./super-admin.component.scss']
 })
 export class SuperAdminComponent {
-  displayedColumns: string[] = ['id', 'companyName', 'action'];
+  displayedColumns: string[] = ['id', 'companyName', 'email', 'action', 'options'];
   dataSource = new MatTableDataSource<any>();
 
   @Output() data: EventEmitter<any> = new EventEmitter<any>();
@@ -38,6 +38,7 @@ export class SuperAdminComponent {
         complete: () => { }
       });
   }
+
 
   action(company: any): void {
     this.dialog.open(ActionTabComponent);
