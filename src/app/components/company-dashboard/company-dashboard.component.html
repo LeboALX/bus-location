@@ -14,9 +14,164 @@
     <div class="flex full-width center-center">
         <mat-card class="flex column">
             <mat-tab-group *ngIf="showHomeContent">
-                <mat-tab label="All Buses"> Content 1 </mat-tab>
-                <mat-tab label="All Drivers"> Content 2 </mat-tab>
-                <mat-tab label="All Trips"> Content 3 </mat-tab>
+                <!-- All buses -->
+                <mat-tab label="All Buses">
+                    <div class="table-container">
+                        <mat-form-field appearance="outline" class="filter">
+                          <mat-label>Filter</mat-label>
+                          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Gauteng Coaches" #input>
+                        </mat-form-field>
+                  
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                  
+                          <!-- Make -->
+                          <ng-container matColumnDef="make">
+                            <th mat-header-cell *matHeaderCellDef> Make </th>
+                            <td mat-cell *matCellDef="let element"> {{element.make}} </td>
+                          </ng-container>
+                          <!-- Model -->
+                          <ng-container matColumnDef="model">
+                            <th mat-header-cell *matHeaderCellDef> Model </th>
+                            <td mat-cell *matCellDef="let element"> {{element.model}} </td>
+                          </ng-container>
+                          <!-- Number plate -->
+                          <ng-container matColumnDef="numberPlate">
+                            <th mat-header-cell *matHeaderCellDef> Number Plate </th>
+                            <td mat-cell *matCellDef="let element"> {{element.numberPlate}} </td>
+                          </ng-container>
+                          <!-- Occupants -->
+                          <ng-container matColumnDef="ocupants">
+                            <th mat-header-cell *matHeaderCellDef> Occupancy </th>
+                            <td mat-cell *matCellDef="let element"> {{element.occupant}} </td>
+                          </ng-container>
+                          <!-- Disc number -->
+                          <ng-container matColumnDef="discNumber">
+                            <th mat-header-cell *matHeaderCellDef> Disc Number </th>
+                            <td mat-cell *matCellDef="let element"> {{element.discNumber}} </td>
+                          </ng-container>
+                          <!-- Bus number -->
+                          <ng-container matColumnDef="busNumber">
+                            <th mat-header-cell *matHeaderCellDef> Bus Number </th>
+                            <td mat-cell *matCellDef="let element"> {{element.busNumber}} </td>
+                          </ng-container>
+                          
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  
+                          <!-- Row shown when there is no matching data. -->
+                          <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                          </tr>
+                        </table>
+                        <mat-paginator [length]="200" [pageSizeOptions]="[10, 50, 100]" aria-label="Select page">
+                        </mat-paginator>
+                      </div>
+                </mat-tab>
+                <!-- End All buses -->
+                <!-- All Drivers -->
+                <mat-tab label="All Drivers">
+                    <div class="table-container">
+                        <mat-form-field appearance="outline" class="filter">
+                          <mat-label>Filter</mat-label>
+                          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Gauteng Coaches" #input>
+                        </mat-form-field>
+                  
+                        <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8">
+                  
+                          <!-- Name -->
+                          <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> Name </th>
+                            <td mat-cell *matCellDef="let element">{{element.Name}}</td>
+                          </ng-container>
+                          <!-- Surname -->
+                          <ng-container matColumnDef="surname">
+                            <th mat-header-cell *matHeaderCellDef> Surname </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Surname}} </td>
+                          </ng-container>
+                           <!-- Id number -->
+                           <ng-container matColumnDef="idNumber">
+                            <th mat-header-cell *matHeaderCellDef> Id Number </th>
+                            <td mat-cell *matCellDef="let element">{{ element.Idnumber}} </td>
+                          </ng-container>
+                           <!-- License Number -->
+                           <ng-container matColumnDef="licenseNumber">
+                            <th mat-header-cell *matHeaderCellDef> Licence Number </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Licensenumber}} </td>
+                          </ng-container>
+                           <!-- email -->
+                           <ng-container matColumnDef="email">
+                            <th mat-header-cell *matHeaderCellDef> Email </th>
+                            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                          </ng-container>
+                           <!-- Contact -->
+                           <ng-container matColumnDef="cellNumber">
+                            <th mat-header-cell *matHeaderCellDef> Cell Number </th>
+                            <td mat-cell *matCellDef="let element"> {{element.cellNumber}} </td>
+                          </ng-container>
+                          <!-- Experience -->
+                          <ng-container matColumnDef="experience">
+                            <th mat-header-cell *matHeaderCellDef> Experience </th>
+                            <td mat-cell *matCellDef="let element"> {{element.experience}} </td>
+                          </ng-container>
+                         
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+                  
+                          <!-- Row shown when there is no matching data. -->
+                          <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                          </tr>
+                        </table>
+                        <mat-paginator [length]="200" [pageSizeOptions]="[10, 50, 100]" aria-label="Select page">
+                        </mat-paginator>
+                      </div>
+                </mat-tab>
+                <!-- End All Drivers -->
+                <!-- All Trips -->
+                <mat-tab label="All Routes">
+                    <div class="table-container">
+                        <mat-form-field appearance="outline" class="filter">
+                          <mat-label>Filter</mat-label>
+                          <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Gauteng Coaches" #input>
+                        </mat-form-field>
+                  
+                        <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
+                  
+                          <!--Origin-->
+                          <ng-container matColumnDef="origin">
+                            <th mat-header-cell *matHeaderCellDef>Origin</th>
+                            <td mat-cell *matCellDef="let element"> {{element.origin}} </td>
+                          </ng-container>
+                          <!-- Stops -->
+                          <ng-container matColumnDef="stops">
+                            <th mat-header-cell *matHeaderCellDef> Stops </th>
+                            <td mat-cell *matCellDef="let element"> {{element.stops}} </td>
+                          </ng-container>
+                          <!-- Trip Number -->
+                          <ng-container matColumnDef="tripNumber">
+                            <th mat-header-cell *matHeaderCellDef>Trip Number</th>
+                            <td mat-cell *matCellDef="let element"> {{element.tripNumber}} </td>
+                          </ng-container>
+                          <!-- Occupants -->
+                          <ng-container matColumnDef="destination">
+                            <th mat-header-cell *matHeaderCellDef> Destination </th>
+                            <td mat-cell *matCellDef="let element"> {{element.destination}} </td>
+                          </ng-container>
+                          <!-- Disc number -->
+                        
+                          
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                  
+                          <!-- Row shown when there is no matching data. -->
+                          <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                          </tr>
+                        </table>
+                        <mat-paginator [length]="200" [pageSizeOptions]="[10, 50, 100]" aria-label="Select page">
+                        </mat-paginator>
+                      </div>
+                </mat-tab>
             </mat-tab-group>
             <!-- Add Vehicle -->
             <div *ngIf="showVehicleForm" class="vehicle-form full-width full-height">

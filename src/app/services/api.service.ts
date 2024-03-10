@@ -24,5 +24,6 @@ export class ApiService {
 
   genericGet(endpoint: string){
     return this.http.get(this.serverUrl+endpoint)
+    
   }
 }

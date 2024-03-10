@@ -13,42 +13,35 @@ $blue: #2f3a8f;
     color:   #ffffff!important;
     width: 40% !important;
  }
- .btn-submit{
-    background: #3cba5f !important;
-    color: #ffffff !important;
-    width: 40% !important;
- }
- .contailner{
-    color:#2f3a8f ;
- }
- .font{
-    font-size: 2em;
-   margin-bottom: 1em;
-   text-align: center;
- }
- h2{
-    font-synthesis: none;
-    font-size: 1.6em;
- }
- .padding-2em{
-    padding: 2em;
- }
- .small-title {
-   font-size: 1.5em;
-   color: $blue;
-}
-.formsize{
-   width: 811px;
-   height: 581px;
-} 
-.h-38{
-   height: 38px;
-}
-mat-dialog-content{
-   width: 921px;
-   height: 724px;
 
+ .width-48{
+   width: 48%;
+ }
+
+ .main-form-div{
+   height: 100%;
+   width: 100%;
+ }
+
+ .upload{
+   padding-left: 15px;
+ }
+
+.add-driver{
+   font-size: 2em;
+   margin: 0;
+   margin-bottom: 20px;
 }
-.mat-mdc-dialog-content {
-   max-height: 75vh !important;
+
+.btn-submit{
+   background-color: #2f3a8f !important;
+   color: white !important;
 }
+ .driver-form{
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-wrap: wrap;
+   gap: .5em;
+ }
