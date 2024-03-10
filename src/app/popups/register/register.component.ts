@@ -14,14 +14,12 @@ export class RegisterComponent implements OnInit {
   file: any;
   fileUploadResult: any = 0;
   registrationForm: FormGroup;
-  // pictureId: any = `picture-${new Date().getTime()}`
 
   constructor(private snackbar: MatSnackBar, private api: ApiService) {
     this.registrationForm = new FormGroup({
       companyName: new FormControl('', [Validators.required]),
       companyRegistrationNumber: new FormControl('', [Validators.required, Validators.min(999999)]),
       status: new FormControl('pending'),
-      // fileId: new FormControl(this.pictureId),
       address: new FormGroup({
         streetName: new FormControl('', Validators.required),
         streetNumber: new FormControl('', Validators.required),
@@ -42,7 +40,6 @@ export class RegisterComponent implements OnInit {
 
     const reader = new FileReader();
     console.log('reader', reader)
-    // console.log('files', this.fileElement.files)
     this.fileUploadResult = this.fileElement.files.length
   }
   submit(): void {
