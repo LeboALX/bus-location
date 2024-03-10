@@ -15,4 +15,7 @@
             <map-directions-renderer [directions]="directionsResults" />
         </google-map>
     </mat-card>
+    <p class="no-margin">Estimated Arrival Time: {{ estimatedArrivalTime }}</p>
+    <p class="no-margin">From: {{busStops[0].title}}</p>
+    <p class="no-margin">To: {{busStops[1].title}}</p>
 </div>
