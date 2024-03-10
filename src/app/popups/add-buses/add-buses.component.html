@@ -1,11 +1,11 @@
 <div class="main-form-div full-height ">
     <p class="add-bus">Add Bus</p>
-    <form [formGroup]=" addDriverForm" class="main-form">
+    <form [formGroup]="addDriverForm" class="main-form">
         <mat-form-field appearance="outline" class="width-48">
             <mat-label>Make</mat-label>
             <input type="text" matInput placeholder="Toyota" formControlName="make">
             <mat-error *ngIf="addDriverForm.get('make')?.hasError('required')">
-                Make is required
+                Make is <strong>Required</strong>
             </mat-error>
         </mat-form-field>
         <!--  bus number -->
@@ -23,7 +23,7 @@
         <mat-form-field class="width-48">
             <mat-label>Model</mat-label>
             <mat-select formControlName="model">
-                <mat-option *ngFor="let model of models" [value]="models">{{model | titlecase}}</mat-option>
+                <mat-option *ngFor="let model of models" [value]="model">{{model | titlecase}}</mat-option>
             </mat-select>
             <mat-error *ngIf="addDriverForm.get('model')?.hasError('required')">
                 Model is required
@@ -65,7 +65,7 @@
             </mat-error>
         </mat-form-field>
 
-        <div formGroupName="upload" class="flex column radios ">
+        <div class="flex column radios ">
             <!-- Radio Button -->
             <mat-radio-group aria-label="Select an option">
                 <mat-radio-button value="1">Roadworthy certificate</mat-radio-button>
@@ -84,7 +84,7 @@
         <!-- button -->
         <div class="flex gap-1em center-center full-width ">
             <button mat-raised-button class="width-48" color="warn">Cancel</button>
-            <button mat-raised-button class="width-48" (click)="submit()">Submit</button>
+            <button mat-raised-button class="width-48" color="primary" (click)="submit()">Submit</button>
         </div>
 
 
