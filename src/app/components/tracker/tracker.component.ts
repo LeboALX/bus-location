@@ -21,6 +21,7 @@ export class TrackerComponent implements OnInit {
   center: any;
   data: any
   matchingTrip: any
+  movingBus: any[] = [];
 
   ngOnInit(): void {
 
@@ -78,99 +79,10 @@ export class TrackerComponent implements OnInit {
     }
   ]
 
-  movingBus: any[] = [
-    {
-      title: 'randburg',
-      position: { lat: -26.099111550000003, lng: 28.002470214946314 },
-    },
-    {
-      title: 'Stop 1',
-      position: { lat: -26.14906, lng: 28.009492 },
-    },
-    {
-      title: 'Stop 2',
-      position: { lat: -26.182785, lng: 28.017755 },
-    },
-    {
-      title: 'Stop 3',
-      position: { lat: -26.201923, lng: 28.03123 },
-    },
-    {
-      title: 'Johannesburg',
-      position: { lat: -26.2, lng: 28.1 },
-    },
-    {
-      title: 'Johannesburg',
-      position: { lat: -26.2, lng: 28.1 },
-    },
-    {
-      title: 'Stop 3',
-      position: { lat: -26.201923, lng: 28.03123 },
-    },
-    {
-      title: 'Stop 2',
-      position: { lat: -26.182785, lng: 28.017755 },
-    },
-    {
-      title: 'Stop 1',
-      position: { lat: -26.14906, lng: 28.009492 },
-    },
-    {
-      title: 'randburg',
-      position: { lat: -26.099111550000003, lng: 28.002470214946314 },
-    },
-    {
-      title: 'randburg',
-      position: { lat: -26.099111550000003, lng: 28.002470214946314 },
-    },
-    {
-      title: 'Stop 1',
-      position: { lat: -26.090532, lng: 28.026145 },
-
-    },
-    {
-      title: 'Stop 2',
-      position: { lat: -26.10192, lng: 28.040242 }
-    },
-    {
-      title: 'Stop 3',
-      position: { lat: -26.091321, lng: 28.023776 }
-    },
-    {
-      title: 'Sandton',
-      position: { lat: -26.1086844, lng: 28.0582833 },
-      icon: '../../assets/images/bus-location-marker-icon_resized.jpeg',
-    },
-    {
-      title: 'Sandton',
-      position: { lat: -26.1086844, lng: 28.0582833 },
-      icon: '../../assets/images/bus-location-marker-icon_resized.jpeg',
-    },
-    {
-      title: 'Stop 1',
-      position: { lat: -26.091033, lng: 28.081613 },
-
-    },
-    {
-      title: 'Stop 2',
-      position: { lat: -26.097373, lng: 28.080604 },
-
-    },
-    {
-      title: 'Stop 3',
-      position: { lat: -26.082537, lng: 28.105974 },
-
-    },
-    {
-      title: 'Edenvale',
-      position: { lat: -26.1183893, lng: 28.1410332 },
-      icon: '../../assets/images/bus-location-marker-icon_resized.jpeg',
-    },
-  ];
-
   constructor(private zone: NgZone, @Inject(MAT_DIALOG_DATA) public _matchingTrip: any,
     private dialogRef: MatDialogRef<TrackerComponent>, private api: ApiService) {
     this.matchingTrip = _matchingTrip.tripNo;
+    this.movingBus = this.matchingTrip.stops;
     // this.shitfValue = _matchingTrip.tripNo;
     // this.shitfValue = tripNo.tripNumber;
     this.getMyCurrentLocation();
@@ -213,6 +125,80 @@ export class TrackerComponent implements OnInit {
     // }, 3000); 
   }
 
+
+  handleSearch() {
+    this.alternativeStops = this.matchingTrip.stops
+    console.log("this.alternativeStops", this.alternativeStops)
+
+    let originPosition;
+    let destinationPosition;
+    switch (this.matchingTrip.origin.toLowerCase()) {
+      case 'randburg':
+        originPosition = { lat: -26.099111550000003, lng: 28.002470214946314 }
+        break;
+
+      case 'fourways':
+        originPosition = { lat: -26.205, lng: 28.049722 }
+        break;
+
+      case 'midrand':
+        originPosition = { lat: -26.1086844, lng: 28.0582833 }
+        break;
+
+      case 'kyalami':
+        originPosition = { lat: -26.1183893, lng: 28.1410332 }
+        break;
+
+      case 'woodmead':
+        originPosition = { lat: -26.2227778, lng: 27.89 }
+        break;
+
+      case 'vaal':
+        originPosition = { lat: -26.099111550000003, lng: 28.002470214946314 }
+        break;
+    }
+    switch (this.matchingTrip.destination.toLowerCase()) {
+      case 'randburg':
+        destinationPosition = { lat: -26.099111550000003, lng: 28.002470214946314 }
+        break;
+
+      case 'fourways':
+        destinationPosition = { lat: -26.205, lng: 28.049722 }
+        break;
+
+      case 'midrand':
+        destinationPosition = { lat: -26.1086844, lng: 28.0582833 }
+        break;
+
+      case 'kyalami':
+        destinationPosition = { lat: -26.1183893, lng: 28.1410332 }
+        break;
+
+      case 'woodmead':
+        destinationPosition = { lat: -26.2227778, lng: 27.89 }
+        break;
+
+      case 'vaal':
+        destinationPosition = { lat: -26.099111550000003, lng: 28.002470214946314 }
+        break;
+    }
+
+    this.busStops = [
+      {
+        title: this.matchingTrip.origin,
+        position: this.matchingTrip.stops[0].position,
+        icon: '../../assets/images/bus-location-marker-icon_resized.jpeg',
+      },
+      {
+        title: this.matchingTrip.destination,
+        position: this.matchingTrip.stops[this.matchingTrip.stops.length - 1].position,
+        icon: '../../assets/images/bus-location-marker-icon_resized.jpeg',
+      },
+    ],
+      console.log("this.alternativeStops", this.alternativeStops)
+    this.calculateAndDisplayRoute();
+  }
+
   //? Danger - tracking code: -- used to track the bus moving
   getMyCurrentLocation(): void {
 
@@ -236,16 +222,11 @@ export class TrackerComponent implements OnInit {
           }
           this.availableBuses[0].position = this.center;
           count++;
-
-          // Check if count has reached the end of the movingBus array
-          if (count === this.movingBus.length) {
-            console.log('Reached the end of movingBus array');
-            clearInterval(intervalId); // Clear the interval
-          }
         });
       } else {
-        console.log('Interval cleared');
-        clearInterval(intervalId); // Clear the interval
+        count = 0;
+        // console.log('Interval cleared');
+        // clearInterval(intervalId); // Clear the interval
       }
     }, 3000);
   }
@@ -316,79 +297,6 @@ export class TrackerComponent implements OnInit {
     return formattedArrivalTime;
   }
 
-
-  handleSearch() {
-    this.alternativeStops = this.matchingTrip.stops
-    console.log("this.alternativeStops", this.alternativeStops)
-    
-    let originPosition;
-    let destinationPosition;
-    switch (this.matchingTrip.origin.toLowerCase()) {
-      case 'randburg':
-        originPosition = { lat: -26.099111550000003, lng: 28.002470214946314 }
-        break;
-
-      case 'fourways':
-        originPosition = { lat: -26.205, lng: 28.049722 }
-        break;
-
-      case 'midrand':
-        originPosition = { lat: -26.1086844, lng: 28.0582833 }
-        break;
-
-      case 'kyalami':
-        originPosition = { lat: -26.1183893, lng: 28.1410332 }
-        break;
-
-      case 'woodmead':
-        originPosition = { lat: -26.2227778, lng: 27.89 }
-        break;
-
-      case 'vaal':
-        originPosition = { lat: -26.099111550000003, lng: 28.002470214946314 }
-        break;
-    }
-    switch (this.matchingTrip.destination.toLowerCase()) {
-      case 'randburg':
-        destinationPosition = { lat: -26.099111550000003, lng: 28.002470214946314 }
-        break;
-
-      case 'fourways':
-        destinationPosition = { lat: -26.205, lng: 28.049722 }
-        break;
-
-      case 'midrand':
-        destinationPosition = { lat: -26.1086844, lng: 28.0582833 }
-        break;
-
-      case 'kyalami':
-        destinationPosition = { lat: -26.1183893, lng: 28.1410332 }
-        break;
-
-      case 'woodmead':
-        destinationPosition = { lat: -26.2227778, lng: 27.89 }
-        break;
-
-      case 'vaal':
-        destinationPosition = { lat: -26.099111550000003, lng: 28.002470214946314 }
-        break;
-    }
-
-    this.busStops = [
-      {
-        title: this.matchingTrip.origin,
-        position: originPosition,
-        icon: '../../assets/images/bus-location-marker-icon_resized.jpeg',
-      },
-      {
-        title: this.matchingTrip.destination,
-        position: destinationPosition,
-        icon: '../../assets/images/bus-location-marker-icon_resized.jpeg',
-      },
-    ],
-    console.log("this.alternativeStops", this.alternativeStops)
-    this.calculateAndDisplayRoute();
-  }
   close(): void {
     this.dialogRef.close()
   }
