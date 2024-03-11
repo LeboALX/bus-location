@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   file: any;
   fileUploadResult: any = 0;
   registrationForm!: FormGroup;
+  foundCompany:any;
 
   constructor(private snackbar: MatSnackBar, private api: ApiService,
     @Inject(MAT_DIALOG_DATA) public _data: any, private dialogRef: MatDialogRef<RegisterComponent>) {
@@ -68,11 +69,34 @@ export class RegisterComponent implements OnInit {
     this.fileUploadResult = this.fileElement.files.length
   }
   submit(): void {
+
+    this.api.genericGet('/get-company')
+    .subscribe({
+      next: (res: any) => {
+         res.filter((_data:any)=>{
+          this.foundCompany = _data.companyRegistrationNumber;
+          if(this.registrationForm.get('companyRegistrationNumber')?.value == this.foundCompany)
+          {
+            console.log("Input value",this.registrationForm.get('companyRegistrationNumber')?.value)
+            this.snackbar.open('Company Already Exist','Ok',{duration:3000});
+            return;
+          }
+        })
+        
+      },
+      error: (err: any) => console.log('Error', err),
+      complete: () => { }
+    })
+ 
+
     if (this.registrationForm.invalid && this.fileUploadResult === 0) return
     if (this.registrationForm.get('password')?.value !== this.registrationForm.get('confirmPassword')?.value) {
       this.registrationForm.get('confirmPassword')?.setErrors({ 'pattern': true });
       return;
     }
+
+    
+
     let formValue = this.registrationForm.value;
     delete formValue.confirmPassword;
     // Upload file only
@@ -95,9 +119,10 @@ export class RegisterComponent implements OnInit {
     this.api.genericPost('/add-company', this.registrationForm.value)
       .subscribe({
         next: (res: any) => {
-          console.log('commpany res', res)
+          console.log('commpany res._id', res._id)
           if (res._id) {
             this.snackbar.open('Registration succesfully sent, awaiting verification', 'Ok', { duration: 3000 })
+            this.dialogRef.close()
           } else {
             this.snackbar.open('Something went wrong ...', 'Ok', { duration: 3000 });
           }
@@ -105,6 +130,7 @@ export class RegisterComponent implements OnInit {
         error: (err: any) => console.log('Error', err),
         complete: () => { }
       });
+      
   }
 
   close(): void {
