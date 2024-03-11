@@ -146,6 +146,20 @@ export class LoginComponent {
 
   check() {
     let tripnumber = this.logInForm.get('tripNumber')?.value;
+    this.api.genericGet('/get-route')
+      .subscribe({
+        next: async (res: any) => {
+          console.log("all routes res", res)
+          // this.isFound = await res.filter((driver: any) => driver.idNumber === this.logInForm.get('id')?.value)
+          // if (this.isFound.length === 0) {
+          //   this.snackbar.open('invalid driver ID', 'Ok', { duration: 3000 });
+          //   return;
+          // }
+          // this.invisible = false;
+        },
+        error: (err: any) => console.log('Error', err),
+        complete: () => { }
+      });
     if (tripnumber === '0001') {
       this.showtimer = true
     }
@@ -153,11 +167,19 @@ export class LoginComponent {
 
   checkid() {
     let diverId: any = this.logInForm.get('id')?.value;
-    if (diverId === '86050610') {
-      this.invisible = false
-    } else {
-      this.snackbar.open('invalid driver ID', 'Ok', { duration: 3000 });
-    }
+    this.api.genericGet('/get-driver')
+      .subscribe({
+        next: async (res: any) => {
+          this.isFound = await res.filter((driver: any) => driver.idNumber === this.logInForm.get('id')?.value)
+          if (this.isFound.length === 0) {
+            this.snackbar.open('invalid driver ID', 'Ok', { duration: 3000 });
+            return;
+          }
+          this.invisible = false;
+        },
+        error: (err: any) => console.log('Error', err),
+        complete: () => { }
+      });
   }
 }
 
