@@ -1,47 +1,53 @@
-.size80{
-    width: 80%;
-    height: 80%;
+.size80 {
+  width: 80%;
+  height: 80%;
 }
 
 $blue: #2f3a8f;
- $green: #3cba5f;
- $red: #f00101;
- $white: #ffffff;
- $white-bg: #fdfdfd;
- .btn-cancel{
-    background:#f00101 !important;
-    color:   #ffffff!important;
-    width: 40% !important;
- }
+$green: #3cba5f;
+$red: #f00101;
+$white: #ffffff;
+$white-bg: #fdfdfd;
 
- .width-48{
-   width: 48%;
- }
-
- .main-form-div{
-   height: 100%;
-   width: 100%;
- }
-
- .upload{
-   padding-left: 15px;
- }
-
-.add-driver{
-   font-size: 2em;
-   margin: 0;
-   margin-bottom: 20px;
+.btn-cancel {
+  background: #f00101 !important;
+  color: #ffffff !important;
+  width: 40% !important;
 }
 
-.btn-submit{
-   background-color: #2f3a8f !important;
-   color: white !important;
+.width-48 {
+  width: 48%;
 }
- .driver-form{
-   width: 100%;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   flex-wrap: wrap;
-   gap: .5em;
- }
+
+.main-form-div {
+  height: 100%;
+  width: 100%;
+}
+
+.upload {
+  padding-left: 15px;
+}
+
+.color-red {
+  color: red;
+}
+
+.add-driver {
+  font-size: 2em;
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.btn-submit {
+  background-color: #2f3a8f !important;
+  color: white !important;
+}
+
+.driver-form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .5em;
+}
