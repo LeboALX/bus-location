@@ -6,7 +6,7 @@
             <form [formGroup]="logInForm">
                 <div class="showOnlyAdmin" *ngIf="showOnlyAdmin">
                     <!-- Email -->
-                    <mat-form-field class="full-width" appearance="outline">
+                    <mat-form-field class="full-width m-b-1em" appearance="outline">
                         <mat-label>Email</mat-label>
                         <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
                         <mat-error *ngIf="logInForm.get('email')?.hasError('required')">
@@ -17,7 +17,7 @@
                         </mat-error>
                     </mat-form-field>
                     <!-- Password -->
-                    <mat-form-field class="full-width" appearance="outline">
+                    <mat-form-field class="full-width m-b-1em" appearance="outline">
                         <mat-label>Password</mat-label>
                         <input type="password" matInput formControlName="password" placeholder="Enter your Password">
                         <mat-error *ngIf="logInForm.get('password')?.hasError('required')">
@@ -31,7 +31,7 @@
                     <div class=" flex gap-1em center-center full-width">
                         <button class="flex-1" mat-raised-button color="warn" type="button"
                             (click)="logInForm.reset()">Cancel</button>
-                        <button class="flex-1" mat-raised-button type="button">Submit</button>
+                        <button class="flex-1" mat-raised-button type="button"  (click)="submitAndClose()">Submit</button>
                     </div>
                 </div>
                 <!-- Driver container -->

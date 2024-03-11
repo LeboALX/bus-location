@@ -30,7 +30,7 @@
                 </div>
                 <mat-form-field class="search" appearance="outline">
                     <mat-label>Enter shift number</mat-label>
-                    <input type="text" matInput formControlName="tripNumber"  maxlength="6">
+                    <input type="text" matInput formControlName="tripNumber"  maxlength="6" placeholder="1011">
                     <mat-error *ngIf="searchBus.get('tripNumber')?.hasError('required')">
                         Shift Number is <strong>required</strong>
                     </mat-error>
