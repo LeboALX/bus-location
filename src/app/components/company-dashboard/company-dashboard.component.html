@@ -157,7 +157,11 @@
               <!-- Stops -->
               <ng-container matColumnDef="stops">
                 <th mat-header-cell *matHeaderCellDef> Stops </th>
-                <td mat-cell *matCellDef="let element"> {{element.stops}} </td>
+                <td mat-cell *matCellDef="let element">
+                  <div class="flex gap-05em">
+                    <p *ngFor="let stop of element.stops" class="no-margin">{{stop.title | titlecase}}</p>
+                  </div>
+                </td>
               </ng-container>
               <!-- Trip Number -->
               <ng-container matColumnDef="tripNumber">
@@ -172,8 +176,7 @@
               <!-- Disc number -->
               <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
-                <td mat-cell *matCellDef="let element"> <span (click)="editRoutes(element)"
-                    class="material-icons">edit</span>
+                <td mat-cell *matCellDef="let element">
                   <mat-icon class="pointer" (click)="delete('trip',element)">delete</mat-icon>
                 </td>
               </ng-container>
