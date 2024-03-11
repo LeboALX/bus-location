@@ -1,12 +1,12 @@
 <div class="full-height full-width flex column center-center container">
     <mat-card class="half-height full-width flex center-center padding-20">
-        <div mat-dialog-title class="font">Add Route</div>
+        <div mat-dialog-title class="font">Add Trip</div>
         <div mat-dialog-content class="full-width">
             <form [formGroup]="addRouteForm" class="full-width flex column gap-1em">
                 <!--Trip Number -->
                 <mat-form-field appearance="outline" class="full-width">
                     <mat-label>Trip Number</mat-label>
-                    <input type="number" matInput placeholder="1234" formControlName="tripNumber">
+                    <input type="text" matInput placeholder="1234" formControlName="tripNumber">
                     <mat-error *ngIf="addRouteForm.get('tripNumber')?.hasError('required')">
                         Trip Number is required
                     </mat-error>
@@ -17,31 +17,28 @@
                 <!-- Origin -->
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Origin/Start</mat-label>
-                    <mat-select formControlName="destination">
-                        <mat-option *ngFor="let item of origin" [value]="origin">{{item}}</mat-option>
+                    <mat-select formControlName="origin">
+                        <mat-option *ngFor="let item of origin" [value]="item">{{item}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="addRouteForm.get('origin')?.hasError('required')">
                         Origin is required
                     </mat-error>
                 </mat-form-field>
                 <!-- Bus stops -->
-                <mat-form-field class="full-width" appearance="outline">
+                <mat-form-field class="full-width" appearance="outline" >
                     <mat-label>Bus Stops</mat-label>
                     <mat-select formControlName="stops" multiple>
-                        <mat-option *ngFor="let item of stops" [value]="stops">{{item}}</mat-option>
+                        <mat-option *ngFor="let item of stops" [value]="item">{{item}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="addRouteForm.get('stops')?.hasError('required')">
                         Stop is required
-                    </mat-error>
-                    <mat-error *ngIf="addRouteForm.get('stops')?.hasError('min')">
-                        At least 3 stops are required
                     </mat-error>
                 </mat-form-field>
                 <!--Destination-->
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Destination</mat-label>
                     <mat-select formControlName="destination">
-                        <mat-option *ngFor="let item of destination" [value]="destination">{{item}}</mat-option>
+                        <mat-option *ngFor="let item of destination" [value]="item">{{item}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="addRouteForm.get('destination')?.hasError('required')">
                         Destination is required

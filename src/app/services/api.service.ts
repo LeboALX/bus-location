@@ -12,17 +12,14 @@ export class ApiService {
   }
 
   genericPost(endpoint: any, body: any) {
-    this.http.post(this.serverUrl + endpoint, body)
-      .subscribe({
-        next: (res: any) => {
-          console.log("backend response",res)
-        },
-        error: (err: any) => console.log('Error', err),
-        complete: () => { }
-      });
+    return this.http.post(this.serverUrl + endpoint, body)
   }
 
   genericGet(endpoint: string){
     return this.http.get(this.serverUrl+endpoint)
+  }
+
+  genericDelete(endpoint: string){
+    return this.http.delete(this.serverUrl+endpoint)
   }
 }

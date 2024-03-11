@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -13,24 +14,43 @@ export class RegisterComponent implements OnInit {
   fileElement: any;
   file: any;
   fileUploadResult: any = 0;
-  registrationForm: FormGroup;
-  // pictureId: any = `picture-${new Date().getTime()}`
+  registrationForm!: FormGroup;
 
-  constructor(private snackbar: MatSnackBar, private api: ApiService) {
-    this.registrationForm = new FormGroup({
-      companyName: new FormControl('', [Validators.required]),
-      companyRegistrationNumber: new FormControl('', [Validators.required, Validators.min(999999)]),
-      status: new FormControl('pending'),
-      // fileId: new FormControl(this.pictureId),
-      address: new FormGroup({
-        streetName: new FormControl('', Validators.required),
-        streetNumber: new FormControl('', Validators.required),
-        city: new FormControl('', Validators.required),
-        code: new FormControl('', Validators.required),
-      }),
-      email: new FormControl('', [Validators.required, Validators.pattern(/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/)]),
-      cellNumber: new FormControl('', [Validators.required])
-    })
+  constructor(private snackbar: MatSnackBar, private api: ApiService, 
+    @Inject(MAT_DIALOG_DATA) public _data: any,  private dialogRef: MatDialogRef<RegisterComponent>) {
+    console.log("Company datas",_data)
+      if(_data)
+      {
+        this.registrationForm = new FormGroup({
+          companyName: new FormControl(_data.companyName, [Validators.required]),
+          companyRegistrationNumber: new FormControl(_data.companyRegistrationNumber, [Validators.required, Validators.min(999999)]),
+          status: new FormControl('pending'),
+          address: new FormGroup({
+            streetName: new FormControl(_data.address.streetName, Validators.required),
+            streetNumber: new FormControl(_data.address.streetNumber, Validators.required),
+            city: new FormControl(_data.address.city, Validators.required),
+            code: new FormControl(_data.address.code, Validators.required),
+          }),
+          email: new FormControl(_data.email, [Validators.required, Validators.pattern(/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/)]),
+          cellNumber: new FormControl(_data.cellNumber, [Validators.required])
+        })
+      }
+
+      else{
+        this.registrationForm = new FormGroup({
+          companyName: new FormControl('', [Validators.required]),
+          companyRegistrationNumber: new FormControl('', [Validators.required, Validators.min(999999)]),
+          status: new FormControl('pending'),
+          address: new FormGroup({
+            streetName: new FormControl('', Validators.required),
+            streetNumber: new FormControl('', Validators.required),
+            city: new FormControl('', Validators.required),
+            code: new FormControl('', Validators.required),
+          }),
+          email: new FormControl('', [Validators.required, Validators.pattern(/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/)]),
+          cellNumber: new FormControl('', [Validators.required])
+        })
+      }
   }
 
   ngOnInit(): void {
@@ -42,13 +62,9 @@ export class RegisterComponent implements OnInit {
 
     const reader = new FileReader();
     console.log('reader', reader)
-    // console.log('files', this.fileElement.files)
     this.fileUploadResult = this.fileElement.files.length
   }
   submit(): void {
-    if (this.fileUploadResult === 0) {
-      this.snackbar.open('Please upload file', 'Ok', { duration: 3000 });
-    }
     if (this.registrationForm.invalid && this.fileUploadResult === 0) return
 
     // Upload file only
@@ -58,7 +74,21 @@ export class RegisterComponent implements OnInit {
 
     // Upload register group
     this.api.genericPost('/add-company', this.registrationForm.value)
+    .subscribe({
+      next: (res: any) => {
+        console.log('commpany res', res)
+        if (res._id) {
+          this.snackbar.open('Successfully awaiting company verifications', 'Ok', { duration: 3000 })
+        } else {
+          this.snackbar.open('Something went wrong ...', 'Ok', { duration: 3000 });
+        }
+      },
+      error: (err: any) => console.log('Error', err),
+      complete: () => { }
+    });
+  }
 
-    this.snackbar.open('Successfully awaiting company verifications', 'Ok', { duration: 3000 });
+  close():void{
+    this.dialogRef.close()
   }
 }

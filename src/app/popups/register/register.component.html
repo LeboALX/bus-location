@@ -9,7 +9,7 @@
                         <!-- company name -->
                         <mat-form-field appearance="outline" class="flex-1">
                             <mat-label>Company Name</mat-label>
-                            <input type="text" matInput placeholder="xyz Company" formControlName="companyName">
+                            <input [readonly]="_data" type="text" matInput placeholder="xyz Company" formControlName="companyName">
                             <mat-error >
                                 Company Name is required
                             </mat-error>
@@ -17,7 +17,7 @@
                         <!-- company registration number -->
                         <mat-form-field appearance="outline" class="flex-1">
                             <mat-label>Company registration Number </mat-label>
-                            <input type="number" matInput placeholder="0000000000"
+                            <input [readonly]="_data" type="number" matInput placeholder="0000000000"
                                 formControlName="companyRegistrationNumber">
                             <mat-error *ngIf="registrationForm.get('companyRegistrationNumber')?.hasError('required')">
                                 Company registration Numberis required
@@ -29,7 +29,7 @@
                     </div>
                     <!-- company logo -->
                     <div class="flex column m-b-1em h-38">
-                        <input type="file" id="file" (change)="fileUpload($event)">
+                        <input [readonly]="_data" type="file" id="file" (change)="fileUpload($event)">
                         <small class="red" *ngIf="fileUploadResult === 0 && registrationForm.valid">
                             Company Logo is required
                         </small>
@@ -42,7 +42,7 @@
                     <div class="flex gap-1em full-width">
                         <mat-form-field appearance="outline" class="flex-1">
                             <mat-label>Street Name</mat-label>
-                            <input type="text" matInput placeholder="xyz Company" formControlName="streetName">
+                            <input [readonly]="_data" type="text" matInput placeholder="xyz Company" formControlName="streetName">
                             <mat-error *ngIf="registrationForm.get('address.streetName')?.hasError('required')">
                                 Street Name is required
                             </mat-error>
@@ -51,7 +51,7 @@
                         <!-- street number -->
                         <mat-form-field appearance="outline" class="flex-1">
                             <mat-label>Street Number</mat-label>
-                            <input type="number" matInput placeholder="0000" formControlName="streetNumber">
+                            <input [readonly]="_data" type="number" matInput placeholder="0000" formControlName="streetNumber">
                             <mat-error *ngIf="registrationForm.get('address.streetNumber')?.hasError('required')">
                                 Street Number is required
                             </mat-error>
@@ -61,7 +61,7 @@
                     <div class="flex gap-1em full-width">
                         <mat-form-field appearance="outline" class="flex-1">
                             <mat-label>City</mat-label>
-                            <input type="text" matInput placeholder="xyz Company" formControlName="city">
+                            <input [readonly]="_data" type="text" matInput placeholder="xyz Company" formControlName="city">
                             <mat-error *ngIf="registrationForm.get('address.city')?.hasError('required')">
                                 City is required
                             </mat-error>
@@ -69,7 +69,7 @@
                         <!-- code -->
                         <mat-form-field appearance="outline" class="flex-1">
                             <mat-label>Code</mat-label>
-                            <input type="number" matInput placeholder="xyz Company" formControlName="code">
+                            <input [readonly]="_data" type="number" matInput placeholder="xyz Company" formControlName="code">
                             <mat-error *ngIf="registrationForm.get('address.code')?.hasError('required')">
                                 Code is required
                             </mat-error>
@@ -81,7 +81,7 @@
                 <div class="flex gap-1em">
                     <mat-form-field appearance="outline" class="flex-1">
                         <mat-label>Email</mat-label>
-                        <input type="email" matInput placeholder="xyz@gmail.com" formControlName="email">
+                        <input [readonly]="_data" type="email" matInput placeholder="xyz@gmail.com" formControlName="email">
                         <mat-error *ngIf="registrationForm.get('email')?.hasError('required')">
                             Email Adreess is required
                         </mat-error>
@@ -92,7 +92,7 @@
                     <!-- contacts tell phone -->
                     <mat-form-field appearance="outline" class="flex-1">
                         <mat-label>cell Number</mat-label>
-                        <input type="number" matInput placeholder="0000000000" formControlName="cellNumber">
+                        <input [readonly]="_data" type="number" matInput placeholder="0000000000" formControlName="cellNumber">
                         <mat-error *ngIf="registrationForm.get('cellNumber')?.hasError('required')">              
                             cell Number is required
                         </mat-error>
@@ -100,8 +100,8 @@
                 </div>
                 <!-- button -->
                 <div class="flex center-center full-width gap-1em">
-                    <button mat-raised-button class="btn-cancel flex-1 ">cancel</button>
-                    <button mat-raised-button class="btn-submit flex-1 " (click)="submit()">submit</button>
+                    <button mat-raised-button class="btn-cancel flex-1 " (click)="close()">cancel</button>
+                    <button mat-raised-button class="btn-submit flex-1 " *ngIf="!_data" (click)="submit()">submit</button>
                 </div>
             </form>
         </div>

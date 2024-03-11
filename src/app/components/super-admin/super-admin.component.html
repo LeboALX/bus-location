@@ -8,10 +8,12 @@
   <div class="main-container flex column">
     <div class="flex center-center gap-1em ">
       <div class="cards-container flex center-center gap-1em">
-        <mat-card [matBadge]="dataSource.data.length" matBadgeSize="large" matBadgeOverlap="true"
+        <mat-card [matBadge]="pendingCount" matBadgeSize="large" matBadgeOverlap="true"
           class="card bg-transparent border-orange flex center-center">Pending</mat-card>
-        <mat-card class="card bg-transparent border-red flex center-center">Declined</mat-card>
-        <mat-card class="card bg-transparent border-green flex center-center">Approved</mat-card>
+        <mat-card [matBadge]="declinedCount" matBadgeSize="large"
+          class="card bg-transparent border-red flex center-center">Declined</mat-card>
+        <mat-card [matBadge]="approvedCount" matBadgeSize="large"
+          class="card bg-transparent border-green flex center-center">Approved</mat-card>
       </div>
       <div class="flex center-center pie-chart">
         <app-pie-chart></app-pie-chart>
@@ -35,16 +37,37 @@
         <!-- Company name Column -->
         <ng-container matColumnDef="companyName">
           <th mat-header-cell *matHeaderCellDef> Company Name </th>
-          <td mat-cell *matCellDef="let element"> {{element.companyName}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.companyName | titlecase}} </td>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
         </ng-container>
 
         <!-- Action Column -->
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef> Action </th>
-          <td mat-cell *matCellDef="let element"><mat-icon (click)="action(element)">visibility</mat-icon>
-            <mat-icon (click)="deleteCompany()">delete</mat-icon></td>
+          <td mat-cell *matCellDef="let element">
+            <button class="half-width" mat-raised-button [disabled]="element.status === 'declined'"
+              [color]="element.status === 'pending' ? 'warn':element.status === 'declined' ? 'accent': 'primary'"
+              [matMenuTriggerFor]="menu">{{element.status | titlecase}}</button>
+            <mat-menu #menu="matMenu">
+              <button *ngFor="let option of applicationOptions" (click)="updateStatus(element,option)"
+                mat-menu-item>{{option | titlecase}}</button>
+            </mat-menu>
+          </td>
         </ng-container>
-        
+
+        <!-- Options Column -->
+        <ng-container matColumnDef="options">
+          <th mat-header-cell *matHeaderCellDef> Options </th>
+          <td mat-cell *matCellDef="let element"><mat-icon (click)="viewCompanyDetails(element)">visibility</mat-icon>
+            <mat-icon (click)="deleteCompany(element)">delete</mat-icon>
+          </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
