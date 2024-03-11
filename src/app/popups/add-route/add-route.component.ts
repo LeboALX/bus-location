@@ -10,9 +10,9 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class AddRouteComponent {
   addRouteForm: FormGroup
-  origin: any[] = ['Randburg', 'Fourways', 'Midrand', 'Kyalami', 'Woodmead', 'Vaal'];
-  stops: any[] = ['Bryanston', 'Brixton', 'Sandton', 'Hillbrow', 'Westgate', 'Parktown', 'Alex'];
-  destination: any[] = ['Randburg', 'Fourways', 'Midrand', 'Kyalami', 'Woodmead', 'Vaal'];
+  origin: any[] = ['Randburg', 'Sandton', 'Johannesburg', 'Edenvale'];
+  stops: any[] = ['Sandton City', 'Fourways', 'Rosebank', 'Westgate', 'Parktown', 'Alex'];
+  destination: any[] = ['Randburg', 'Sandton', 'Johannesburg', 'Edenavle'];
   
   constructor(private snackbar: MatSnackBar, private api: ApiService) {
     this.addRouteForm = new FormGroup({

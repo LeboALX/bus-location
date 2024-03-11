@@ -5,6 +5,7 @@ import { LoginComponent } from 'src/app/popups/login/login.component';
 import { RegisterComponent } from 'src/app/popups/register/register.component';
 import { TrackerComponent } from '../tracker/tracker.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ApiService } from 'src/app/services/api.service';
 
 
 @Component({
@@ -20,6 +21,8 @@ export class LandingComponent {
 
   dialogItems: string[] = ['Driver', 'Admin'];
   currentValue: string = '';
+  data:any
+  tableData:any[] =[]
 
   onInput(event: any) {
     this.currentValue = event.target.value;
@@ -28,10 +31,22 @@ export class LandingComponent {
   searchBus!: FormGroup;
   panelColor = new FormControl;
 
-  constructor(private dialog: MatDialog, private snackbar: MatSnackBar) {
+  constructor(private dialog: MatDialog, private snackbar: MatSnackBar, private api: ApiService) {
     this.searchBus = new FormGroup({
       tripNumber: new FormControl('', [Validators.required, Validators.maxLength(6)])
     })
+    this.api.genericGet('/get-route')
+      .subscribe({
+        next: (res: any) => {
+          this.data = res;
+          console.log(this.data)
+          for (let i = 0; i < this.data.length; i++) {
+            console.log(this.data[i].tripNumber)
+          }
+        },
+        error: (err: any) => console.log('Error', err),
+        complete: () => { }
+      });
   }
 
   login(indx: any): void {
@@ -56,16 +71,36 @@ export class LandingComponent {
   }
 
   searchOnMap(): void {
+    const matchingTrip = this.data.find((trip: any) => trip.tripNumber === this.searchBus.value.tripNumber);
+    if (matchingTrip) {
+    this.dialog.open(TrackerComponent, {
+      data: {
+          tripNo: matchingTrip.tripNumber,
+      }
+    })
+    };
     console.log("this.searchBus.value.tripNumber", this.searchBus.value.tripNumber)
-    if (this.searchBus.value.tripNumber == '0001' || this.searchBus.value.tripNumber == '0002' || this.searchBus.value.tripNumber == '0003') {
+    if (this.searchBus.value.tripNumber == '0001' || this.searchBus.value.tripNumber == '0002' || this.searchBus.value.tripNumber == '1234' ) {
       this.dialog.open(TrackerComponent, {
         data: {
           tripNo: this.searchBus.value.tripNumber
         }
       })
-    } else {
+      } else {
       this.snackbar.open('Invalid bus trip number', 'Ok', { duration: 3000 });
       return;
-    }
+      }
+
+      if((matchingTrip && this.searchBus.value.tripNumber === matchingTrip.tripNumber)) {
+        this.dialog.open(TrackerComponent, {
+          data: {
+            tripNo: matchingTrip.tripNumber
+          }
+        })
+        }
+    
+
   }
+
+  
 }

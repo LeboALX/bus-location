@@ -1,6 +1,7 @@
 import { Component, Inject, NgZone, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-tracker',
@@ -18,6 +19,8 @@ export class TrackerComponent implements OnInit {
 
   zoom: number = 15;
   center: any;
+  data:any
+  matchingTrip:any
 
   ngOnInit(): void {
     
@@ -166,12 +169,42 @@ export class TrackerComponent implements OnInit {
 ];
 
   constructor(private zone: NgZone, @Inject(MAT_DIALOG_DATA) public tripNo: any,
-  private dialogRef: MatDialogRef<TrackerComponent>) {
+  private dialogRef: MatDialogRef<TrackerComponent>, private api: ApiService) {
     this.shitfValue = tripNo.tripNo;
+    // this.shitfValue = tripNo.tripNumber;
     this.getMyCurrentLocation();
 
     this.directionsService = new google.maps.DirectionsService();
     this.directionsRenderer = new google.maps.DirectionsRenderer({ map: this.map });
+
+
+    // this.api.genericGet('/get-route')
+    //   .subscribe({
+    //     next: (res: any) => {
+    //       this.data = res;
+    //       this.matchingTrip = this.data.find((trip: any) => trip.tripNumber);
+    //       console.log(this.matchingTrip)
+    //       for (let i = 0; i < this.data.length; i++) {
+    //         this.busStops = [
+    //           // Route 1 
+    //           {
+    //             title: this.data[i].origin,
+    //             position: { lat: -26.099111550000003, lng: 28.002470214946314 },
+    //             icon: '../../assets/images/bus-location-marker-icon_resized.jpeg',
+    //           },
+    //           // To
+    //           {
+    //             title: this.data[i].destination,
+    //             position: { lat: -26.205, lng: 28.049722 },
+    //             icon: '../../assets/images/bus-location-marker-icon_resized.jpeg',
+    //           },
+    //         ]
+    //       }
+    //       this.calculateAndDisplayRoute();
+    //     },
+    //     error: (err: any) => console.log('Error', err),
+    //     complete: () => { }
+    //   });
 
     // track bus, updates every 3 seconds
     // setInterval(() => {
@@ -194,9 +227,9 @@ export class TrackerComponent implements OnInit {
     })
     let count = 0
     // Set up the interval
-const intervalId = setInterval(() => {
-  // Check if count is within the bounds of the movingBus array
-  if (count < this.movingBus.length) {
+    const intervalId = setInterval(() => {
+    // Check if count is within the bounds of the movingBus array
+    if (count < this.movingBus.length) {
     navigator.geolocation.getCurrentPosition(location => {
       this.center = {
         lat: this.movingBus[count].position.lat,
@@ -217,15 +250,14 @@ const intervalId = setInterval(() => {
     console.log('Interval cleared');
     clearInterval(intervalId); // Clear the interval
   }
-}, 3000);
-
+  }, 3000);
   }
 
   // adding the route from origin and destination
   calculateAndDisplayRoute() {
     for (let i = 0; i < this.availableBuses.length; i++) {
       const bus = this.availableBuses[i];
-    const request: google.maps.DirectionsRequest = {
+      const request: google.maps.DirectionsRequest = {
       origin: this.busStops[0].position, // Replace with your start coordinates
       destination: this.busStops[1].position, // Replace with your destination coordinates
       travelMode: google.maps.TravelMode.DRIVING,
@@ -357,7 +389,7 @@ const intervalId = setInterval(() => {
         this.calculateAndDisplayRoute();
     }
 
-    if (this.shitfValue === '0003') {
+    if (this.shitfValue === '1234') {
       this.busStops = [
         {
           title: 'Sandton',
@@ -373,27 +405,74 @@ const intervalId = setInterval(() => {
 
         this.alternativeStops = [
           {
-            title: 'Stop 1',
+            title: 'Sandton City',
             position: { lat: -26.091033, lng: 28.081613 },
 
           },
           {
-            title: 'Stop 2',
+            title: 'Fourways',
             position: { lat: -26.097373, lng: 28.080604 },
 
           },
           {
-            title: 'Stop 3',
+            title: 'Alex',
             position: { lat: -26.082537, lng: 28.105974 },
 
           },
         ],
         this.calculateAndDisplayRoute();
     }
+
+    if (this.shitfValue === this.matchingTrip) {
+
+      // this.busStops = [
+      //       // Route 1 
+      //       {
+      //         title: this.matchingTrip[0].origin,
+      //         position: { lat: -26.099111550000003, lng: 28.002470214946314 },
+      //         icon: '../../assets/images/bus-location-marker-icon_resized.jpeg',
+      //       },
+      //       // To
+      //       {
+      //         title: this.data[0].destination,
+      //         position: { lat: -26.205, lng: 28.049722 },
+      //         icon: '../../assets/images/bus-location-marker-icon_resized.jpeg',
+      //       },
+      //     ]
+      //     this.calculateAndDisplayRoute();
+        }
+        
+      // console.log(this.matchingTrip)
+      // this.api.genericGet('/get-route')
+      // .subscribe({
+      //   next: (res: any) => {
+      //     this.data = res;
+      //     this.matchingTrip = this.data.find((trip: any) => trip.tripNumber);
+      //     console.log(this.matchingTrip)
+      //     for (let i = 0; i < this.data.length; i++) {
+      //       this.busStops.push({
+      //           title: this.data[i].origin,
+      //           position: { lat: -26.099111550000003, lng: 28.002470214946314 },
+      //           icon: '../../assets/images/bus-location-marker-icon_resized.jpeg',
+      //       });
+      //       // To
+      //       this.busStops.push({
+      //           title: this.data[i].destination,
+      //           position: { lat: -26.205, lng: 28.049722 },
+      //           icon: '../../assets/images/bus-location-marker-icon_resized.jpeg',
+      //       });
+      //   }
+      //     this.calculateAndDisplayRoute();
+      //   },
+      //   error: (err: any) => console.log('Error', err),
+      //   complete: () => { }
+      // });
+    }
+    close(): void {
+      this.dialogRef.close()
+    }
   }
 
-  close(): void {
-    this.dialogRef.close()
-  }
+  
 
-}
+
