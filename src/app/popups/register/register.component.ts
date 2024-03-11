@@ -16,41 +16,44 @@ export class RegisterComponent implements OnInit {
   fileUploadResult: any = 0;
   registrationForm!: FormGroup;
 
-  constructor(private snackbar: MatSnackBar, private api: ApiService, 
-    @Inject(MAT_DIALOG_DATA) public _data: any,  private dialogRef: MatDialogRef<RegisterComponent>) {
-    console.log("Company datas",_data)
-      if(_data)
-      {
-        this.registrationForm = new FormGroup({
-          companyName: new FormControl(_data.companyName, [Validators.required]),
-          companyRegistrationNumber: new FormControl(_data.companyRegistrationNumber, [Validators.required, Validators.min(999999)]),
-          status: new FormControl('pending'),
-          address: new FormGroup({
-            streetName: new FormControl(_data.address.streetName, Validators.required),
-            streetNumber: new FormControl(_data.address.streetNumber, Validators.required),
-            city: new FormControl(_data.address.city, Validators.required),
-            code: new FormControl(_data.address.code, Validators.required),
-          }),
-          email: new FormControl(_data.email, [Validators.required, Validators.pattern(/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/)]),
-          cellNumber: new FormControl(_data.cellNumber, [Validators.required])
-        })
-      }
+  constructor(private snackbar: MatSnackBar, private api: ApiService,
+    @Inject(MAT_DIALOG_DATA) public _data: any, private dialogRef: MatDialogRef<RegisterComponent>) {
+    console.log("Company datas", _data)
+    if (_data) {
+      this.registrationForm = new FormGroup({
+        companyName: new FormControl(_data.companyName, [Validators.required]),
+        companyRegistrationNumber: new FormControl(_data.companyRegistrationNumber, [Validators.required, Validators.min(999999)]),
+        status: new FormControl('pending'),
+        address: new FormGroup({
+          streetName: new FormControl(_data.address.streetName, Validators.required),
+          streetNumber: new FormControl(_data.address.streetNumber, Validators.required),
+          city: new FormControl(_data.address.city, Validators.required),
+          code: new FormControl(_data.address.code, Validators.required),
+        }),
+        email: new FormControl(_data.email, [Validators.required, Validators.pattern(/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/)]),
+        cellNumber: new FormControl(_data.cellNumber, [Validators.required])
 
-      else{
-        this.registrationForm = new FormGroup({
-          companyName: new FormControl('', [Validators.required]),
-          companyRegistrationNumber: new FormControl('', [Validators.required, Validators.min(999999)]),
-          status: new FormControl('pending'),
-          address: new FormGroup({
-            streetName: new FormControl('', Validators.required),
-            streetNumber: new FormControl('', Validators.required),
-            city: new FormControl('', Validators.required),
-            code: new FormControl('', Validators.required),
-          }),
-          email: new FormControl('', [Validators.required, Validators.pattern(/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/)]),
-          cellNumber: new FormControl('', [Validators.required])
-        })
-      }
+
+      })
+    }
+
+    else {
+      this.registrationForm = new FormGroup({
+        companyName: new FormControl('', [Validators.required]),
+        companyRegistrationNumber: new FormControl('', [Validators.required, Validators.min(999999)]),
+        status: new FormControl('pending'),
+        address: new FormGroup({
+          streetName: new FormControl('', Validators.required),
+          streetNumber: new FormControl('', Validators.required),
+          city: new FormControl('', Validators.required),
+          code: new FormControl('', Validators.required),
+        }),
+        email: new FormControl('', [Validators.required, Validators.pattern(/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/)]),
+        cellNumber: new FormControl('', [Validators.required]),
+        password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
+        confirmPassword: new FormControl('', [Validators.required])
+      })
+    }
   }
 
   ngOnInit(): void {
@@ -66,29 +69,45 @@ export class RegisterComponent implements OnInit {
   }
   submit(): void {
     if (this.registrationForm.invalid && this.fileUploadResult === 0) return
-
+    if (this.registrationForm.get('password')?.value !== this.registrationForm.get('confirmPassword')?.value) {
+      this.registrationForm.get('confirmPassword')?.setErrors({ 'pattern': true });
+      return;
+    }
+    let formValue = this.registrationForm.value;
+    delete formValue.confirmPassword;
     // Upload file only
     const formData = new FormData();
     formData.append('file', this.file, this.file.name,);
     this.api.genericPost('/upload', formData)
-
+      .subscribe({
+        next: (res: any) => {
+          console.log('file upload res', res)
+          if (res.file._id) {
+            console.log('File uploaded successfully');
+          } else {
+            this.snackbar.open('Something went wrong ...', 'Ok', { duration: 3000 });
+          }
+        },
+        error: (err: any) => console.log('Error', err),
+        complete: () => { }
+      });
     // Upload register group
     this.api.genericPost('/add-company', this.registrationForm.value)
-    .subscribe({
-      next: (res: any) => {
-        console.log('commpany res', res)
-        if (res._id) {
-          this.snackbar.open('Successfully awaiting company verifications', 'Ok', { duration: 3000 })
-        } else {
-          this.snackbar.open('Something went wrong ...', 'Ok', { duration: 3000 });
-        }
-      },
-      error: (err: any) => console.log('Error', err),
-      complete: () => { }
-    });
+      .subscribe({
+        next: (res: any) => {
+          console.log('commpany res', res)
+          if (res._id) {
+            this.snackbar.open('Registration succesfully sent, awaiting verification', 'Ok', { duration: 3000 })
+          } else {
+            this.snackbar.open('Something went wrong ...', 'Ok', { duration: 3000 });
+          }
+        },
+        error: (err: any) => console.log('Error', err),
+        complete: () => { }
+      });
   }
 
-  close():void{
+  close(): void {
     this.dialogRef.close()
   }
 }

@@ -31,7 +31,8 @@
                     <div class=" flex gap-1em center-center full-width">
                         <button class="flex-1" mat-raised-button color="warn" type="button"
                             (click)="logInForm.reset()">Cancel</button>
-                        <button class="flex-1" mat-raised-button type="button"  (click)="submitAndClose()">Submit</button>
+                        <button class="flex-1" mat-raised-button type="button"
+                            (click)="submitAndClose()">Submit</button>
                     </div>
                 </div>
                 <!-- Driver container -->
@@ -47,8 +48,11 @@
                             Id should at least have 8 characters
                         </mat-error>
                     </mat-form-field>
+                    <!-- checkid -->
+                    <button mat-raised-button class="btn" type="button" (click)="checkid()" *ngIf="invisible">check
+                        id</button>
                     <!-- shift Number -->
-                    <div *ngIf="logInForm.get('id')?.valid">
+                    <div *ngIf="!invisible">
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Trip Number</mat-label>
                             <input type="tripNumber" matInput formControlName="tripNumber"
@@ -61,8 +65,14 @@
                             </mat-error>
                         </mat-form-field>
                         <!-- button -->
-                        <button mat-raised-button class="btn" type="button"
-                            (click)="startEndText()">{{startEnd}}</button>
+                        <div>{{ displayTime }}</div>
+                        <div class="flex gap-1em">
+                            <button [disabled]="logInForm.get('tripNumber')?.hasError('required')" mat-raised-button class="btn" type="button" (click)="startStopwatch()">Start
+                                Trip</button>
+                            <button type="button" class="btn" mat-raised-button (click)="stopStopwatch()"
+                                [disabled]="!isRunning" color="warn">End Trip</button>
+                        </div>
+
                     </div>
                 </div>
             </form>
