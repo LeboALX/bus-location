@@ -75,7 +75,7 @@
             <div class="h-38">
                 <input type="file" id="file" (change)="fileUpload($event)" 
                     placeholder="file">
-                <small class="color" *ngIf="fileUploadResult === 0 &&  addDriverForm.valid">
+                <small class="color-red" *ngIf="fileUploadResult === 0 &&  addDriverForm.valid">
                     Document is required
                 </small>
             </div>

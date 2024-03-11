@@ -22,6 +22,7 @@ import { AddBusesComponent } from './popups/add-buses/add-buses.component';
 import { RegisterComponent } from './popups/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ActionTabComponent } from './popups/action-tab/action-tab.component';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import { ActionTabComponent } from './popups/action-tab/action-tab.component';
     NgChartsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{ provide: MAT_DIALOG_DATA, useValue: {} }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,21 +9,21 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./add-driver.component.scss']
 })
 export class AddDriverComponent {
-  addDriverForm:FormGroup
- codes:any[]=['Code 10','Code 14'];
- fileElement: any;
- fileUploadResult: any = 0;
- file:any;
-  constructor(private snackbar :MatSnackBar, private api: ApiService){
+  addDriverForm: FormGroup
+  codes: any[] = ['Code 10', 'Code 14'];
+  fileElement: any;
+  fileUploadResult: any = 0;
+  file: any;
+  constructor(private snackbar: MatSnackBar, private api: ApiService) {
     this.addDriverForm = new FormGroup({
-      Name : new FormControl('' , [Validators.required , ]),
-      Surname : new FormControl('' , [Validators.required]),
-      Idnumber: new FormControl ('', [Validators.required]),
-      Licensenumber: new FormControl ('', [Validators.required]),
-     email:new FormControl('',[Validators.required]),
-     cellNumber:new FormControl('',[Validators.required,]),
-     code:new FormControl('',Validators.required),
-     experience: new FormControl('',Validators.required),
+      name: new FormControl('', [Validators.required,]),
+      surname: new FormControl('', [Validators.required]),
+      idNumber: new FormControl('', [Validators.required]),
+      licenseNumber: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required]),
+      cellNumber: new FormControl('', [Validators.required,]),
+      code: new FormControl('', Validators.required),
+      experience: new FormControl('', Validators.required),
     })
   }
 
@@ -41,16 +41,27 @@ export class AddDriverComponent {
   }
 
   submit(): void {
-   
-    if (this.addDriverForm.invalid && this.fileUploadResult === 0) return
+
+    if (this.addDriverForm.invalid || this.fileUploadResult === 0) {
+      this.snackbar.open('All fields are required', 'Ok', { duration: 3000 });
+      return;
+    }
     const formData = new FormData();
     formData.append('file', this.file, this.file.name,);
     this.api.genericPost('/upload', formData)
     this.api.genericPost('/add-driver', this.addDriverForm.value)
-    this.snackbar.open('Driver successfully added','Ok',{duration:3000})
-
+      .subscribe({
+        next: (res: any) => {
+          console.log('res res', res)
+          if (res._id) {
+            this.snackbar.open('Driver successfully added', 'Ok', { duration: 3000 })
+          } else {
+            this.snackbar.open('Something went wrong ...', 'Ok', { duration: 3000 });
+          }
+        },
+        error: (err: any) => console.log('Error', err),
+        complete: () => { }
+      });
     this.addDriverForm.reset()
-
   }
-
 }

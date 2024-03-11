@@ -3,7 +3,7 @@
     <form [formGroup]="addDriverForm" class="driver-form" >
         <mat-form-field appearance="outline" class="width-48">
             <mat-label>Name</mat-label>
-            <input type="text" matInput placeholder="xyz Company" formControlName="Name">
+            <input type="text" matInput placeholder="xyz Company" formControlName="name">
             <mat-error *ngIf="addDriverForm.get('Name')?.hasError('required')">
                 Name is required
             </mat-error>
@@ -14,7 +14,7 @@
         <!-- surname -->
         <mat-form-field appearance="outline" class="width-48">
             <mat-label>Surname</mat-label>
-            <input type="text" matInput placeholder="xyz Company" formControlName="Surname">
+            <input type="text" matInput placeholder="xyz Company" formControlName="surname">
             <mat-error *ngIf="addDriverForm.get('Surname')?.hasError('required')">
                 Surname is required
             </mat-error>
@@ -25,7 +25,7 @@
         <!-- id number -->
         <mat-form-field appearance="outline" class="width-48">
             <mat-label>Identification Number </mat-label>
-            <input type="text" matInput placeholder="0000000000" formControlName="Idnumber">
+            <input type="text" matInput placeholder="0000000000" formControlName="idNumber">
             <mat-error *ngIf="addDriverForm.get('Idnumber')?.hasError('required')">
                 Identification Number is required
             </mat-error>
@@ -36,7 +36,7 @@
         <!-- license numberz -->
         <mat-form-field appearance="outline" class="width-48">
             <mat-label>License Number </mat-label>
-            <input type="text" matInput placeholder="0000000000" formControlName="Licensenumber">
+            <input type="text" matInput placeholder="0000000000" formControlName="licenseNumber">
             <mat-error *ngIf="addDriverForm.get('Licensenumber')?.hasError('required')">
                 License Number is required
             </mat-error>
@@ -95,7 +95,7 @@
             <div class="h-38">
                 <input type="file" id="file" (change)="fileUpload($event)"
                     placeholder="file">
-                <small class="red" *ngIf="fileUploadResult === 0 &&  addDriverForm.valid">
+                <small class="color-red" *ngIf="fileUploadResult === 0 &&  addDriverForm.valid">
                     Document is required
                 </small>
             </div>

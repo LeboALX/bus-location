@@ -14,7 +14,7 @@ export class AddBusesComponent implements OnInit {
   occupancy: any[] = ['30', '50', ' 65', ' 85', '106'];
   fileElement: any;
   fileUploadResult: any = 0;
-  file:any;
+  file: any;
   addDriverForm: FormGroup
 
   constructor(private snackbar: MatSnackBar, private api: ApiService) {
@@ -41,15 +41,25 @@ export class AddBusesComponent implements OnInit {
   }
 
   submit(): void {
-    if (this.addDriverForm.invalid && this.fileUploadResult === 0) return
-    
-      const formData = new FormData();
-      formData.append('file', this.file, this.file.name,);
-      this.api.genericPost('/upload', formData)
-      this.api.genericPost('/add-bus', this.addDriverForm.value)
-      this.snackbar.open('Bus successfully added','Ok',{duration:3000})
-
-      this.addDriverForm.reset()
-    
+    if (this.addDriverForm.invalid || this.fileUploadResult === 0) {
+      this.snackbar.open('All fields are required', 'Ok', { duration: 3000 });
+      return;
+    }
+    const formData = new FormData();
+    formData.append('file', this.file, this.file.name);
+    this.api.genericPost('/upload', formData)
+    this.api.genericPost('/add-bus', this.addDriverForm.value)
+      .subscribe({
+        next: (res: any) => {
+          if (res._id) {
+            this.snackbar.open('Bus successfully added', 'Ok', { duration: 3000 })
+          } else {
+            this.snackbar.open('Something went wrong ...', 'Ok', { duration: 3000 });
+          }
+        },
+        error: (err: any) => console.log('Error', err),
+        complete: () => { }
+      });
+    this.addDriverForm.reset();
   }
 }
