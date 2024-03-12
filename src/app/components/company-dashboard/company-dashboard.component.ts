@@ -19,6 +19,7 @@ export class CompanyDashboardComponent {
   dataSource: any = new MatTableDataSource<any>();
   dataSource1: any = new MatTableDataSource<any>();
   dataSource2: any = new MatTableDataSource<any>();
+  formHasData: boolean = false;
 
   @Output() data: EventEmitter<any> = new EventEmitter<any>();
 
@@ -44,6 +45,10 @@ export class CompanyDashboardComponent {
       .subscribe({
         next: (res: any) => {
           this.dataSource = res;
+          if (res.length > 0) {
+            this.formHasData = true;
+          }
+          console.log("this.dataSource", this.dataSource)
         },
         error: (err: any) => console.log('Error', err),
         complete: () => { }
@@ -53,6 +58,10 @@ export class CompanyDashboardComponent {
       .subscribe({
         next: (res: any) => {
           this.dataSource1 = res;
+          if (res.length > 0) {
+            this.formHasData = true;
+          }
+          console.log("this.dataSource1", this.dataSource1)
         },
         error: (err: any) => console.log('Error', err),
         complete: () => { }
@@ -63,6 +72,10 @@ export class CompanyDashboardComponent {
         next: (res: any) => {
           this.dataSource2 = res;
           console.log(this.dataSource2)
+          if (res.length > 0) {
+            this.formHasData = true;
+          }
+          console.log("this.dataSource2", this.dataSource2)
         },
         error: (err: any) => console.log('Error', err),
         complete: () => { }
