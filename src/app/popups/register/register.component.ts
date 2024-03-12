@@ -136,4 +136,5 @@ export class RegisterComponent implements OnInit {
   close(): void {
     this.dialogRef.close()
   }
+
 }

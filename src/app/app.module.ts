@@ -23,6 +23,7 @@ import { RegisterComponent } from './popups/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ActionTabComponent } from './popups/action-tab/action-tab.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AboutComponent } from './components/about/about.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     AddDriverComponent,
     RegisterComponent,
     AddRouteComponent,
-    ActionTabComponent
+    ActionTabComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
