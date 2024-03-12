@@ -123,7 +123,7 @@
                 </div>
                 <!-- button -->
                 <div class="flex center-center full-width gap-1em">
-                    <button mat-raised-button class="btn-cancel flex-1 " (click)="registrationForm.reset()">cancel</button>
+                    <button mat-raised-button class="btn-cancel flex-1 " (click)="close()">cancel</button>
                     <button mat-raised-button class="btn-submit flex-1 " *ngIf="!_data" (click)="submit()">submit</button>
                 </div>
             </form>
