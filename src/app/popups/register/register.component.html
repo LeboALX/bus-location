@@ -28,8 +28,9 @@
                         </mat-form-field>
                     </div>
                     <!-- company logo -->
-                    <div class="flex column m-b-1em h-38">
-                        <input [readonly]="_data" type="file" id="file" (change)="fileUpload($event)" placeholder="file">
+                    <div class="flex column m-b-1em h-38" *ngIf="!_data">
+                        <input [readonly]="_data" type="file" id="file" (change)="fileUpload($event)" placeholder="Upload company logo" #openFile style="display:none;">
+                        <button class="logo" mat-raised-button color="primary" (click)="openFile.click()">Upload company logo</button>
                         <small class="red" *ngIf="fileUploadResult === 0 && registrationForm.valid">
                             Company Logo is required
                         </small>
@@ -99,7 +100,7 @@
                     </mat-form-field>
                 </div>
                 <!-- password -->
-                <div class="flex gap-1em">
+                <div class="flex gap-1em" *ngIf="!_data">
                     <mat-form-field appearance="outline" class="flex-1">
                         <mat-label>Password</mat-label>
                         <input type="password" matInput formControlName="password" placeholder="Enter your Password" maxlength="10">

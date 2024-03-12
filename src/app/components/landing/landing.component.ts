@@ -6,6 +6,7 @@ import { RegisterComponent } from 'src/app/popups/register/register.component';
 import { TrackerComponent } from '../tracker/tracker.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from 'src/app/services/api.service';
+import { AboutComponent } from '../about/about.component';
 
 
 @Component({
@@ -78,5 +79,16 @@ export class LandingComponent {
       this.snackbar.open('Invalid bus trip number', 'Ok', { duration: 3000 });
       return;
     }
+  }
+
+  openFacebook(): void {
+    window.open('https://www.facebook.com/', '_blank');
+  }
+
+  about():void{
+    this.dialog.open(AboutComponent,{
+      width:'60%',
+      height:'70%',
+    })
   }
 }
